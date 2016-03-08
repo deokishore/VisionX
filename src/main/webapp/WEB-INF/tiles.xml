@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+    <!-- Tamaar Master Start -->
+    <definition name="master-tamaar.page" template="/public/template/master-tamaar.jsp">
+        <put-attribute name="header" value="/public/template/header-tamaar.jsp"/>
+        <put-attribute name="footer" value="/public/template/footer-tamaar.jsp"/>
+    </definition>
+    <!-- Tamaar Master End -->
+
+    <!--  Tamaar Welcome -->
+    <definition name="tamaarWelcomePage" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/tamaarWelcomePage.jsp"/>
+    </definition>
+
+
+    <!--  Tamaar Products Page -->
+    <definition name="products" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/products.jsp"/>
+    </definition>
+
+    <!--  Tamaar Product Page -->
+    <definition name="product" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/product.jsp"/>
+    </definition>
+    
+    <!--  Tamaar About Us Page -->
+    <definition name="aboutUs" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/aboutUs.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Account Login Page -->
+    <definition name="login" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/login.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Billing Address Page -->
+    <definition name="billingAddress" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/billingAddress.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Billing Delivery Info Page -->
+    <definition name="billingDeliveryInfo" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/billingDeliveryInfo.jsp"/>
+    </definition>
+
+    <!--  Tamaar Billing Delivery Info Page -->
+    <definition name="admin" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/admin.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Blog Page -->
+    <definition name="blogs" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/blogs.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Blog 1 Page -->
+    <definition name="blog1" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/blog1.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Blog 2 Page -->
+    <definition name="blog2" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/blog2.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Blog 3 Page -->
+    <definition name="blog3" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/blog3.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Cart Items Page -->
+    <definition name="cartItems" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/cartItems.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Change Password Page -->
+    <definition name="changePassword" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/changePassword.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Edit Billing Page -->
+    <definition name="checkoutEditBilling" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/checkoutEditBilling.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Edit Cart Page -->
+    <definition name="checkoutEditCart" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/checkoutEditCart.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Edit Postage Page -->
+    <definition name="checkoutPostage" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/checkoutPostage.jsp"/>
+    </definition>
+
+    <definition name="orderView" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/orderView.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Login Page -->
+    <definition name="checkoutLogin" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/checkoutLogin.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout New Shipping Page -->
+    <definition name="checkoutNewShipping" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/checkoutNewShipping.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Step Zero Page -->
+    <definition name="customerRegistration" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/customerRegistration.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Step One Page -->
+    <definition name="checkOutStep1" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/checkOutStep1.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Step Two Page -->
+    <definition name="checkOutStep2" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/checkOutStep2.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Step Three Page -->
+    <definition name="paymentMethod" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/paymentMethod.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Step Four Page -->
+    <definition name="reviewAndOrder" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/reviewAndOrder.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Checkout Step Five Page -->
+    <definition name="checkoutStatus" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/checkoutStatus.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Contact Us Page -->
+    <definition name="contactUs" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/contactUs.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Delivery Information Page -->
+    <definition name="deliveryInformation" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/deliveryInformation.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Edit Billing Page -->
+    <definition name="editBilling" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/editBilling.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Edit Personal Information Page -->
+    <definition name="editPersonalInfo" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/editPersonalInfo.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Edit Shipping Page -->
+    <definition name="shipper" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/shipper.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Empty Cart Page -->
+    <definition name="emptyCart" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/emptyCart.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Faqs Page -->
+    <definition name="faqs" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/faqs.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Logout Success Page -->
+    <definition name="logoutSuccess" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/logoutSuccess.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Manage Subscriptions Page -->
+    <definition name="manageSubscriptions" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/manageSubscriptions.jsp"/>
+    </definition>
+    
+     <!--  Tamaar New Address Page -->
+    <definition name="newAddress" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/newAddress.jsp"/>
+    </definition>
+    
+     <!--  Tamaar OrderVo Details Page -->
+    <definition name="orderDetails" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/orderDetails.jsp"/>
+    </definition>
+    
+     <!--  Tamaar OrderVo History Page -->
+    <definition name="orderHistory" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/orderHistory.jsp"/>
+    </definition>
+    
+     <!--  Tamaar Company Page -->
+    <definition name="ourCompany" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/ourCompany.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Mission Page -->
+    <definition name="ourMission" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/ourMission.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Vision Page -->
+    <definition name="ourVision" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/ourVision.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Print OrderVo Page -->
+    <definition name="printOrder" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/printOrder.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Privacy Policy Page -->
+    <definition name="privacyPolicy" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/privacyPolicy.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Returns & Refunds Page -->
+    <definition name="returnsRefunds" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/returnsRefunds.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Sitemap Page -->
+    <definition name="sitemap" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/sitemap.jsp"/>
+    </definition>
+    
+    <!--  Tamaar Terms & Conditions Page -->
+    <definition name="termsConditions" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/termsConditions.jsp"/>
+    </definition>
+    
+    <!--  Tamaar User Profile Page -->
+    <definition name="userProfile" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/userProfile.jsp"/>
+    </definition>
+    
+    <!--  Tamaar User Registration Page -->
+    <definition name="userRegistration" extends="master-tamaar.page">
+        <put-attribute name="body" value="/protected/userRegistration.jsp"/>
+    </definition>
+
+</tiles-definitions>

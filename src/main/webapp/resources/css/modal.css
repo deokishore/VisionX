@@ -1,0 +1,14 @@
+/* Modal window */
+
+body {height: 100%; margin: 0;}
+#basic-modal-content {display: none;}
+
+/* Overlay */
+#simplemodal-overlay {background-color: #ccc;}
+
+/* Container */
+#simplemodal-container {background: #fff;}
+#simplemodal-container #basic-modal-content {}
+
+/* Added to basket */
+#added-to-basket {width: 365px; font:12px/1.4 Arial,Helvetica,sans-serif;}
