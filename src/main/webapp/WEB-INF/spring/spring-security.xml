@@ -41,19 +41,43 @@
         <intercept-url pattern="/product" access="permitAll" />
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
-        <form-login  login-page="/login" username-parameter="ssoId" password-parameter="password" authentication-failure-url="/Access_Denied" />
+        <intercept-url pattern="/protected/**" access="isAuthenticated()" />
+
+        <form-login  login-page="/login" username-parameter="ssoId"
+                        password-parameter="password"
+                            authentication-failure-url="/Access_Denied"
+                                default-target-url="/authen"/>
+
         <csrf/>
     </http>
 
     <authentication-manager >
         <authentication-provider>
+            <!--
             <user-service>
                 <user name="bill"  password="abc123"  authorities="ROLE_USER" />
                 <user name="admin" password="root123" authorities="ROLE_ADMIN" />
                 <user name="dba"   password="root123" authorities="ROLE_ADMIN,ROLE_DBA" />
-            </user-service>
+            </user-service>-->
+            <jdbc-user-service data-source-ref="myContactDataSource"
+                               users-by-username-query="select email, password, enabled from system_user where email = ?"
+                               authorities-by-username-query="select u.email as login, u.user_role as role from system_user u where u.email = ?" />
         </authentication-provider>
     </authentication-manager>
+
+
+    <!--
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:jdbc-user-service
+                    data-source-ref="myContactDataSource"
+                    users-by-username-query="select email, password, enabled from system_user where email = ?"
+                    authorities-by-username-query="select u.email as login, u.user_role as role from system_user u where u.email = ?" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    -->
 
 
 </beans:beans>

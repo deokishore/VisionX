@@ -11,6 +11,7 @@
     <!-- the mvc resources tag does the magic
     <mvc:resources mapping="/resources/**" location="/resources/" />
     -->
+
     <!-- Login Interceptor
     <mvc:interceptors>
         <mvc:interceptor>
@@ -27,6 +28,22 @@
         </bean>
     </mvc:interceptors>
     -->
+
+    <!-- Login Interceptor -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/"/>
+            <bean class="com.tamaar.inteceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+        <!-- workaround to fix IE8 problem -->
+        <bean id="webContentInterceptor"
+              class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+            <property name="cacheSeconds" value="0"/>
+            <property name="useExpiresHeader" value="true"/>
+            <property name="useCacheControlHeader" value="true"/>
+            <property name="useCacheControlNoStore" value="true"/>
+        </bean>
+    </mvc:interceptors>
 
     <!-- TILES -->
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">

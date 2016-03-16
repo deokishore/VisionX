@@ -5,7 +5,9 @@ package com.tamaar.controller;
  */
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.tamaar.shoppingcart.ShoppingCart;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class HelloWorldController {
+public class LoginManagementController {
 
 
 //    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
@@ -38,9 +40,31 @@ public class HelloWorldController {
     }
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
-    public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
-        return "redirect:/login?invalid";
+    public String accessDeniedPage(ModelMap model, HttpSession session) {
+        String user = getPrincipal();
+        if(user.equals("anonymousUser")){
+            model.addAttribute("user", getPrincipal());
+            return "redirect:/login?invalid";
+        } else {
+            ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
+            shoppingCart.getLoginResponse().setStatus("OK");
+            model.addAttribute("user", getPrincipal());
+            return "redirect:admin";
+        }
+    }
+
+    @RequestMapping(value = "/authen", method = RequestMethod.GET)
+    public String authen(ModelMap model, HttpSession session) {
+        String user = getPrincipal();
+        if(user.equals("anonymousUser")){
+            model.addAttribute("user", getPrincipal());
+            return "redirect:/login?invalid";
+        } else {
+            ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
+            shoppingCart.getLoginResponse().setStatus("OK");
+            model.addAttribute("user", getPrincipal());
+            return "redirect:/admin";
+        }
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
