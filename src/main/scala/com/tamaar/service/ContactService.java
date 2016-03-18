@@ -1,14 +1,17 @@
 package com.tamaar.service;
 
+import com.tamaar.model.Customer;
 import com.tamaar.model.Order;
 import com.tamaar.repository.OrderRepository;
 import com.tamaar.shoppingcart.parser.OrderVo;
 import com.tamaar.util.BeanUtil;
 import com.tamaar.vo.ContactListVO;
+import com.tamaar.vo.CustomerVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -25,13 +28,24 @@ public class ContactService {
     private OrderRepository contactRepository;
 
     @Transactional(readOnly = true)
-    public ContactListVO findAll(int page, int maxResults) {
-        Page<OrderVo> result = executeQueryFindAll(page, maxResults);
+    public ContactListVO findAll(CustomerVo customerVo, int page, int maxResults) {
+        Customer customer = BeanUtil.getCustomer(null, customerVo);
+        Page<OrderVo> result = null;
+        if(customer.getRole().equals("ROLE_ADMIN")){
+            result = executeQueryFindAll(page, maxResults);
+        } else {
+            result =  findAllByCustomerByCustomerId(customer, page, maxResults);
+        }
 
         if(shouldExecuteSameQueryInLastPage(page, result)){
             int lastPage = result.getTotalPages() - 1;
-            result = executeQueryFindAll(lastPage, maxResults);
+            if(customer.getRole().equals("ROLE_ADMIN")) {
+                result = executeQueryFindAll(lastPage, maxResults);
+            }else {
+                result =  findAllByCustomerByCustomerId(customer, lastPage, maxResults);
+            }
         }
+
 
         return buildResult(result);
     }
@@ -67,6 +81,21 @@ public class ContactService {
         Page<Order> pageOrderVo = contactRepository.findAll(pageRequest);
 
         List<Order> content = pageOrderVo.getContent();
+
+        List<OrderVo> orderVoList = BeanUtil.getOrderVoList(content);
+
+        Page p = new PageImpl(orderVoList);
+
+        return p;
+    }
+
+    private Page<OrderVo> findAllByCustomerByCustomerId(Customer customerByCustomerId, int page, int maxResults) {
+
+        Pageable pageable = new PageRequest(page, maxResults, Sort.Direction.ASC, "customerByCustomerId");
+
+        Page<Order> byCustomerByCustomerId = contactRepository.findByCustomerByCustomerId(customerByCustomerId, pageable);
+
+        List<Order> content = byCustomerByCustomerId.getContent();
 
         List<OrderVo> orderVoList = BeanUtil.getOrderVoList(content);
 

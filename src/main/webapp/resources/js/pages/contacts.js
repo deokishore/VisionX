@@ -20,8 +20,6 @@ function contactsController($scope, $http) {
     $scope.searchFor = ""
 
     $scope.getContactList = function () {
-
-
         var url = $scope.url;
         $scope.lastAction = 'list';
 
@@ -31,7 +29,6 @@ function contactsController($scope, $http) {
 
         $http.get(url, config)
             .success(function (data) {
-
                 $scope.finishAjaxCallOnSuccess(data, null, false);
             })
             .error(function () {

@@ -13,7 +13,7 @@
     
             <!-- Order Summary -->
             <!-- <div id="product" ng-controller="CheckoutController" ng-init="getCheckout();">-->
-            <div id="product" ng-controller="CheckoutController">
+            <div id="product" ng-controller="CheckoutController" ng-init="getCheckout();">
 
             	<div class="row">
                 	<div class="checkout checkout-step2 span12">
@@ -32,7 +32,7 @@
                         	<div class="progress-bar clearfix">
                             	<ol>
                                 	<li class="first" id="login-progress-bar">
-                						<h4><a href="/checkoutLogin">Login / register</a></h4>
+                						<h4><a href="/login">Login / register</a></h4>
             						</li>
                                     <li class="current" id="delivery-progress-bar">
                 						<h4>Delivery &amp; Billing</h4>
@@ -283,7 +283,6 @@
 									</form>
 								</div>
 							</div>
-
 							<!-- End Delivery Address Editing -->
 
 
@@ -507,8 +506,9 @@
                                     <hr class="divider">
 									<div class="action_bottom">
 
-									  <input type="button" onclick="location.href='/checkout/customerRegistration?isGuest={{shoppingCart.loginResponse.isGuest}}'" value="Previous" class="btn">
-									  <input type="submit" onclick="location.href='/checkout/checkoutPostage'" value="Continue to postage options" class="btn fr">
+									  <input type="button" onclick="location.href='/checkout/customerRegistration?isGuest={{shoppingCart.loginResponse.isGuest}}'" value="Previousss" class="btn">
+
+									  <input ng-show="continueToPostageOptionsButtonModel.value"  type="submit" onclick="location.href='/checkout/checkoutPostage'" value="Continue to postage options" class="btn fr">
 
 									</div>
                             	</div>

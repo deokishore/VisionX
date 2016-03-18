@@ -20,7 +20,7 @@
                         	<div class="progress-bar clearfix">
                             	<ol>
                                 	<li class="first" id="login-progress-bar">
-                						<h4><a href="/checkoutLogin">Login / register</a></h4>
+                						<h4><a href="/login">Login / register</a></h4>
             						</li>
                                     <li class="current" id="delivery-progress-bar">
                 						<h4>Billing &amp; delivery</h4>
@@ -225,7 +225,7 @@
                                     <div class="clearfix"></div>
                                     <hr class="divider mt20">
                                     <div class="action_bottom">
-                                    <input type="button" onclick="location.href='/checkoutLogin'" value="Cancel" class="btn">
+                                    <input type="button" onclick="location.href='/login'" value="Cancel" class="btn">
                                     <input type="submit" value="Continue to billing & delivery" class="btn fr">
                                   </form>
                                 </div>

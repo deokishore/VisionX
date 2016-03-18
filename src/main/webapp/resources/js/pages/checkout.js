@@ -1,11 +1,9 @@
 function CheckoutController($scope, $http, $rootScope, $window) {
 
-
         $scope.pageToGet = 0;
         $scope.state = 'busy';
         $scope.lastAction = '';
         $scope.url = "/products";
-
         $scope.errorOnSubmit = false;
         $scope.errorIllegalAccess = false;
         $scope.displayMessageToUser = false;
@@ -15,13 +13,8 @@ function CheckoutController($scope, $http, $rootScope, $window) {
         $scope.displayCreateContactButton = false;
 
         $rootScope.shoppingCart = "";
-
         $rootScope.shoppingCartLineItem = "";
 
-        $scope.checkOutList = function () {
-            alert("YYYYY  : " );
-        };
-	
 	$scope.updateShoppingCart = function (shoppingCartLineItem) {
 		for (var i=0; i<$rootScope.shoppingCart.lineItems.length; i++) {
           if (shoppingCartLineItem.productVo.productId === $rootScope.shoppingCart.lineItems[i].productVo.productId) {
@@ -32,34 +25,22 @@ function CheckoutController($scope, $http, $rootScope, $window) {
         $scope.shoppingCart = $rootScope.shoppingCart;
     };
 
-
-
-
     $scope.removeProductFromCart = function (shoppingCartLineItem) {
-
-
         for (var i=0; i<$rootScope.shoppingCart.lineItems.length; i++) {
-
               if (shoppingCartLineItem.productVo.productId === $rootScope.shoppingCart.lineItems[i].productVo.productId) {
-
                    var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
                    $scope.formData = { "productVo" : shoppingCartLineItem.productVo};
                    var url = "/removeProductFromCart";
-
                    var response = $http.post(url, $scope.formData);
-
                    response.success(function(data, status, headers, config) {
                         $rootScope.shoppingCart.lineItems.splice(i, 1);
                         $rootScope.shoppingCart = data;
                    });
-
                    response.error(function(data, status, headers, config) {
                         alert( "Exception details: " + JSON.stringify({data: data}));
                    });
-
                    break;
               }
-
         }
         $rootScope.shoppingCart = $rootScope.shoppingCart;
     };
@@ -81,18 +62,18 @@ function CheckoutController($scope, $http, $rootScope, $window) {
 
     // Create new Customer Start
     $scope.createNewOrder = function (shoppingCart) {
+        var url = '/checkout/createNewOrder';
+        var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+        var response = $http.post(url, shoppingCart);
 
-            var url = '/checkout/createNewOrder';
-            var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+        response.success(function(data, status, headers, config) {
+            $rootScope.shoppingCart = data;
+            $window.location.href = "/checkout/billingDeliveryInfo";
+        });
 
-             var response = $http.post(url, shoppingCart);
-                 response.success(function(data, status, headers, config) {
-                    $rootScope.shoppingCart = data;
-                    $window.location.href = "/checkout/billingDeliveryInfo";
-                 });
-                 response.error(function(data, status, headers, config) {
-                     alert( "Exception details: " + JSON.stringify({data: data}));
-                 });
+        response.error(function(data, status, headers, config) {
+             alert( "Exception details: " + JSON.stringify({data: data}));
+        });
     };
     // Create new Customer End
 
@@ -113,7 +94,7 @@ function CheckoutController($scope, $http, $rootScope, $window) {
     // Create new Delivery Address End
 
 
-    // Create new Customer Start
+    // Update Delivery Customer Start
     $scope.updateDeliveryCustomer = function () {
         var url = '/checkout/updateDeliveryCustomer';
         var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
@@ -130,7 +111,7 @@ function CheckoutController($scope, $http, $rootScope, $window) {
                  alert("Fail updateDeliveryCustomer");
          });
     };
-    // Create new Customer End
+    // Update Delivery Customer End
 
 
 
@@ -159,6 +140,17 @@ function CheckoutController($scope, $http, $rootScope, $window) {
         $http.get(url)
             .success(function (data) {
                $rootScope.shoppingCart = data;
+
+               if ($rootScope.shoppingCart.loginResponse.status === 'OK') {
+                $scope.billingAddressDisplayModel.value = true;
+               }
+                alert($rootScope.shoppingCart.lineItems.length);
+               if ($rootScope.shoppingCart.lineItems.length === 0) {
+                alert("Hello");
+                $scope.continueToPostageOptionsButtonModel.value = false;
+               }
+
+
             })
             .error(function(data, status, headers) {
                 $scope.handleErrorInDialogs(status);
@@ -328,6 +320,10 @@ function CheckoutController($scope, $http, $rootScope, $window) {
 
     $scope.billingAddressFinishedModel = {
             value : false,
+    };
+
+    $scope.continueToPostageOptionsButtonModel = {
+         value : true,
     };
 
     $scope.checkoutButton = function() {

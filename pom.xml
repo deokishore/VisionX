@@ -40,7 +40,7 @@
     </repositories>
 
     <build>
-        <finalName>tamaar</finalName>
+        <finalName>ROOT</finalName>
         <sourceDirectory>src/main/scala</sourceDirectory>
 
         <plugins>

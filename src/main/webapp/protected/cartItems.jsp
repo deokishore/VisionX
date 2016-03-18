@@ -25,7 +25,7 @@
                 	<div class="span12">
                     	<h1>Your Shopping Cart</h1>
                         <div class="pb15"><input type="button" id="checkout" class="btn fr" name="cntshopping" 
-                        value="Proceed to checkout" onClick="location.href='/checkoutLogin'">
+                        value="Proceed to checkout" onClick="location.href='/login'">
                           <div class="clearfix"></div>
                         </div>
                         <form id="cartform" method="post" action="/checkoutLogin">
@@ -61,7 +61,7 @@
                                         <td class="item">
                                             <a href="/product">
                                               <strong>{{shoppingCartLineItem.productVo.productId}}</strong>
-                                              <p>250ml bottle</p>
+                                              <p>{{shoppingCartLineItem.productVo.size}} ml bottle</p>
                                             </a>
                                      	</td>
                                         <td class="qty">
@@ -73,9 +73,9 @@
                                             </div>
                                             
                                      	</td>
-                                        <td class="price">&pound;{{shoppingCartLineItem.productVo.priceVo.amount}}</td>
+                                        <td class="price"> <span id="currency-default">{{shoppingCartLineItem.productVo.priceVo.amount | currency:'£' }}</span></td>
                                         <td class="itemtotal">
-                                        	<span class="total">&pound;{{shoppingCartLineItem.totalCost}}</span>
+                                        	<span class="total"><span id="currency-default">{{shoppingCartLineItem.totalCost | currency:'£' }}</span></span>
                                         </td>
                                         <td class="remove">
                                             <a class="cart" href="" ng-click="removeProductFromCart(shoppingCartLineItem);">Remove</a>
@@ -91,16 +91,16 @@
                                 	<table id="shopping-cart-totals-table" cellspacing="0">
                                     	<tbody>
                                         	<tr>
-                                                <td colspan="1" class="tr titles"><span>Subtotal</span></td>
-                                                <td class="a-right totals"><span>&pound;{{getTotal()}}</span></td>
+                                                <td colspan="1" class="tr titles"><span>Sub Total</span></td>
+                                                <td class="a-right totals"><span id="currency-default">{{getTotal() | currency:'£' }}</span></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="1" class="tr titles"><span>Delivery options from</span></td>
                                                 <td class="a-right totals"><span>&pound;0.00</span></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="1" class="tr titles"><span>Total</span></td>
-                                                <td class="a-right totals"><span>&pound;{{getTotal()}}</span></td>
+                                                <td colspan="1" class="tr titles"><span>Grand Total</span></td>
+                                                <td class="a-right totals"><span id="currency-default">{{getTotal() | currency:'£' }}</span></td>
                                             </tr>
                                         </tbody>
                                     </table>

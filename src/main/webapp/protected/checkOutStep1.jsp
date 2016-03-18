@@ -28,7 +28,7 @@
                         	<div class="progress-bar clearfix">
                             	<ol>
                                 	<li class="first" id="login-progress-bar">
-                						<h4><a href="/checkoutLogin">Login / register</a></h4>
+                						<h4><a href="/login">Login / register</a></h4>
             						</li>
                                     <li class="current" id="delivery-progress-bar">
                 						<h4>Delivery &amp; Billing</h4>

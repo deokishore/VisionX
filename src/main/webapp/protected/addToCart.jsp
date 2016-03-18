@@ -36,7 +36,7 @@
             <div class="product-details">
               <div class="product-title">{{shoppingCartLineItem.productVo.productId}}</div>
             </div>
-            <div class="product-price">{{shoppingCartLineItem.productVo.priceVo.amount}}</div>
+            <div class="product-price"><span id="currency-default">{{shoppingCartLineItem.productVo.priceVo.amount | currency:'£' }}</span></div>
             <div class="product-quantity">
               <input type="number" value="{{shoppingCartLineItem.quantity}}" ng-model="shoppingCartLineItem.quantity" ng-change="updateShoppingCart(shoppingCartLineItem)">
             </div>
@@ -46,7 +46,7 @@
                 Remove
               </button>
             </div>
-            <div class="product-line-price">{{shoppingCartLineItem.totalCost}}</div>
+            <div class="product-line-price"> <span id="currency-default">{{shoppingCartLineItem.totalCost | currency:'£' }}</span> </div>
           </div>
 
       </div>
@@ -54,14 +54,14 @@
     <div class="totals">
          <div class="totals-item totals-item-total">
             <label>Grand Total</label>
-            <div class="totals-value" id="cart-total">{{ getTotal() }}</div>
+            <div class="totals-value" id="cart-total"><span id="currency-default">{{getTotal() | currency:'£' }}</span> </div>
          </div>
     </div>
 
 
     <div class="product">
          <input type="button" id="checkout" class="btn fr" name="cntshopping"
-                                 value="Checkout" onClick="location.href='/checkoutLogin'">
+                                 value="Checkout" onClick="location.href='/login'">
          <a ng-href='#addToCartModal'
             role="button"
             ng-click='addToCart()'

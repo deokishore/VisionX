@@ -3,13 +3,17 @@ package com.tamaar.controller;
 /**
  * Created by deokishore on 01/02/2016.
  */
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.tamaar.service.CheckoutService;
+import com.tamaar.service.CustomerService;
+import com.tamaar.service.OrderService;
 import com.tamaar.shoppingcart.ShoppingCart;
+import com.tamaar.shoppingcart.parser.OrderVo;
+import com.tamaar.vo.CustomerVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -17,19 +21,27 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
 @Controller
 public class LoginManagementController {
 
+    @Autowired
+    CustomerService customerService;
 
-//    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-//    public String homePage(ModelMap model) {
-//        model.addAttribute("greeting", "Hi, Welcome to mysite");
-//        return "welcome";
-//    }
+    @Autowired
+    private CheckoutService checkoutService;
+
+    @Autowired
+    OrderService orderService;
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
+        UserDetails userDetails =  getPrincipal();
+        model.addAttribute("user", userDetails.getUsername());
         return "admin";
     }
 
@@ -41,29 +53,52 @@ public class LoginManagementController {
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model, HttpSession session) {
-        String user = getPrincipal();
-        if(user.equals("anonymousUser")){
-            model.addAttribute("user", getPrincipal());
+        UserDetails userDetails =  getPrincipal();
+        if(userDetails == null){
+            model.addAttribute("user", "anonymousUser");
             return "redirect:/login?invalid";
         } else {
             ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
             shoppingCart.getLoginResponse().setStatus("OK");
-            model.addAttribute("user", getPrincipal());
+            model.addAttribute("user", userDetails.getUsername());
             return "redirect:admin";
         }
     }
 
     @RequestMapping(value = "/authen", method = RequestMethod.GET)
     public String authen(ModelMap model, HttpSession session) {
-        String user = getPrincipal();
-        if(user.equals("anonymousUser")){
+        UserDetails userDetails =  getPrincipal();
+        if(userDetails.getUsername().equals("anonymousUser")){
             model.addAttribute("user", getPrincipal());
             return "redirect:/login?invalid";
         } else {
+
+            String role = ((User) userDetails).getAuthorities().toArray()[0].toString();
             ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
             shoppingCart.getLoginResponse().setStatus("OK");
-            model.addAttribute("user", getPrincipal());
-            return "redirect:/admin";
+            model.addAttribute("user", userDetails.getUsername());
+
+            CustomerVo customerVo = customerService.isValidUser(userDetails.getUsername());
+            customerVo.setRole(role);
+            shoppingCart.getOrderVo().setCustomerByCustomerIdVo(customerVo);
+
+            // get Existing billing and delivery address:
+            List<OrderVo> orderList = orderService.findByCustomerId(customerVo);
+            OrderVo orderVo = orderList.get(0);
+            shoppingCart.getOrderVo().setCustomerByBillingCustomerIdVo(orderVo.getCustomerByBillingCustomerIdVo());
+            shoppingCart.getOrderVo().setCustomerByDeliveryCustomerIdVo(orderVo.getCustomerByDeliveryCustomerIdVo());
+
+            if(shoppingCart.getLineItems().size() > 0) {
+                OrderVo orderVoNew = checkoutService.saveNewOrder(shoppingCart);
+                shoppingCart.setOrderVo(orderVoNew);
+            }
+            session.setAttribute("shoppingCart", shoppingCart);
+
+            if(role.equals("ROLE_ADMIN")){
+                return "redirect:/admin";
+            } else {
+                return "redirect:/billingDeliveryInfo";
+            }
         }
     }
 
@@ -81,16 +116,15 @@ public class LoginManagementController {
         return "redirect:/login?logout";
     }
 
-    private String getPrincipal(){
-        String userName = null;
+    private UserDetails getPrincipal(){
+        UserDetails userDetails = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (principal instanceof UserDetails) {
-            userName = ((UserDetails)principal).getUsername();
-        } else {
-            userName = principal.toString();
+            userDetails = ((UserDetails)principal);
         }
-        return userName;
+
+        return userDetails;
     }
 
 }

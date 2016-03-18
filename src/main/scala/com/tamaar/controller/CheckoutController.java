@@ -67,6 +67,7 @@ public class CheckoutController {
         }
 
         shoppingCart.setOrderVo(orderVo);
+        shoppingCart.getLoginResponse().setStatus("OK");
 
         session.setAttribute("shoppingCart", shoppingCart);
         return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);

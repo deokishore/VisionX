@@ -1,8 +1,11 @@
 package com.tamaar.controller;
 
 import com.tamaar.service.ContactService;
+import com.tamaar.shoppingcart.ShoppingCart;
 import com.tamaar.shoppingcart.parser.OrderVo;
+import com.tamaar.util.BeanUtil;
 import com.tamaar.vo.ContactListVO;
+import com.tamaar.vo.CustomerVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 @Controller
@@ -42,8 +46,10 @@ public class ContactController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<?> listAll(@RequestParam int page, Locale locale) {
-        return createListAllResponse(page, locale);
+    public ResponseEntity<?> listAll(@RequestParam int page, Locale locale, HttpSession httpSession) {
+        ShoppingCart shoppingCart = (ShoppingCart)httpSession.getAttribute("shoppingCart");
+        CustomerVo customerByCustomerIdVo = shoppingCart.getOrderVo().getCustomerByCustomerIdVo();
+        return createListAllResponse(customerByCustomerIdVo, page, locale);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
@@ -57,7 +63,7 @@ public class ContactController {
             return search(searchFor, page, locale, "message.create.success");
         }
 
-        return createListAllResponse(page, locale, "message.create.success");
+        return createListAllResponse(null, page, locale, "message.create.success");
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
@@ -76,7 +82,7 @@ public class ContactController {
             return search(searchFor, page, locale, "message.update.success");
         }
 
-        return createListAllResponse(page, locale, "message.update.success");
+        return createListAllResponse(null, page, locale, "message.update.success");
     }
 
     @RequestMapping(value = "/{contactId}", method = RequestMethod.DELETE, produces = "application/json")
@@ -95,7 +101,7 @@ public class ContactController {
             return search(searchFor, page, locale, "message.delete.success");
         }
 
-        return createListAllResponse(page, locale, "message.delete.success");
+        return createListAllResponse(null, page, locale, "message.delete.success");
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = "application/json")
@@ -119,20 +125,20 @@ public class ContactController {
         return new ResponseEntity<ContactListVO>(contactListVO, HttpStatus.OK);
     }
 
-    private ContactListVO listAll(int page) {
-        return contactService.findAll(page, maxResults);
+    private ContactListVO listAll(CustomerVo customerVo, int page) {
+        return contactService.findAll(customerVo, page, maxResults);
     }
 
     private ResponseEntity<ContactListVO> returnListToUser(ContactListVO contactList) {
         return new ResponseEntity<ContactListVO>(contactList, HttpStatus.OK);
     }
 
-    private ResponseEntity<?> createListAllResponse(int page, Locale locale) {
-        return createListAllResponse(page, locale, null);
+    private ResponseEntity<?> createListAllResponse(CustomerVo customerVo, int page, Locale locale) {
+        return createListAllResponse(customerVo, page, locale, null);
     }
 
-    private ResponseEntity<?> createListAllResponse(int page, Locale locale, String messageKey) {
-        ContactListVO contactListVO = listAll(page);
+    private ResponseEntity<?> createListAllResponse(CustomerVo customerVo, int page, Locale locale, String messageKey) {
+        ContactListVO contactListVO = listAll(customerVo, page);
 
         addActionMessageToVO(contactListVO, locale, messageKey, null);
 

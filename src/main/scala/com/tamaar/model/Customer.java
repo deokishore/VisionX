@@ -35,6 +35,7 @@ public class Customer implements java.io.Serializable {
 	private String landlineNumber;
 	private String role;
 	private String hdyhau;
+	private String enabled;
 
 	private Set<Order> ordersForBillingCustomerId = new HashSet(0);
 	private Set<Order> ordersForDeliveryCustomerId = new HashSet(0);
@@ -45,7 +46,7 @@ public class Customer implements java.io.Serializable {
 
 	public Customer(Address address, String title, String firstName,
 			String lastName, String email, String password,
-			String mobileNumber, String landlineNumber, String role, String hdyhau,
+			String mobileNumber, String landlineNumber, String role, String hdyhau, String enabled,
 			Set<Order> ordersForBillingCustomerId, Set<Order> ordersForDeliveryCustomerId,
 			Set<Order> ordersForCustomerId) {
 		this.address = address;
@@ -61,6 +62,7 @@ public class Customer implements java.io.Serializable {
 		this.ordersForBillingCustomerId = ordersForBillingCustomerId;
 		this.ordersForDeliveryCustomerId = ordersForDeliveryCustomerId;
 		this.ordersForCustomerId = ordersForCustomerId;
+		this.enabled = enabled;
 	}
 
 	@Id
@@ -165,6 +167,15 @@ public class Customer implements java.io.Serializable {
 		this.hdyhau = hdyhau;
 	}
 
+	@Column(name = "enabled", length = 45)
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "customerByBillingCustomerId")
 	@JsonIgnore
 	public Set<Order> getOrdersForBillingCustomerId() {
@@ -194,5 +205,6 @@ public class Customer implements java.io.Serializable {
 	public void setOrdersForCustomerId(Set<Order> ordersForCustomerId) {
 		this.ordersForCustomerId = ordersForCustomerId;
 	}
+
 
 }

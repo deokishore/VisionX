@@ -39,7 +39,8 @@
                        <div class="span6">
                        	<h1 class="title">{{shoppingCartLineItem.productVo.productId}}</h1>
                            <div class="purchase">
-           					<h2 id="price-preview" class="price">&pound; {{shoppingCartLineItem.productVo.priceVo.amount}}</h2>
+
+           					<h2 id="price-preview" class="price"> <span id="currency-default">{{shoppingCartLineItem.productVo.priceVo.amount | currency:'£' }}</span><br> </h2>
          					</div>
 
                            <form id="add-item-form" action="" method="post" class="variants clearfix">

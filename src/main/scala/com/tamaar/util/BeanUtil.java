@@ -83,37 +83,40 @@ public class BeanUtil {
     }
 
 
-    public static Order getOrder(OrderVo orderVo) {
-        Order order = new Order();
+    public static Order getOrder(Order dbOrder, OrderVo orderVo) {
+
+        if(dbOrder == null) {
+            dbOrder = new Order();
+        }
         try {
-            BeanUtils.copyProperties(order, orderVo);
+            BeanUtils.copyProperties(dbOrder, orderVo);
 
-            Customer customer = getCustomer(null, orderVo.getCustomerByCustomerIdVo());
-            order.setCustomerByCustomerId(customer);
+            Customer customer = getCustomer(dbOrder.getCustomerByCustomerId(), orderVo.getCustomerByCustomerIdVo());
+            dbOrder.setCustomerByCustomerId(customer);
 
-            customer = getCustomer(null, orderVo.getCustomerByDeliveryCustomerIdVo());
-            order.setCustomerByDeliveryCustomerId(customer);
+            customer = getCustomer(dbOrder.getCustomerByDeliveryCustomerId(), orderVo.getCustomerByDeliveryCustomerIdVo());
+            dbOrder.setCustomerByDeliveryCustomerId(customer);
 
-            customer = getCustomer(null, orderVo.getCustomerByBillingCustomerIdVo());
-            order.setCustomerByBillingCustomerId(customer);
+            customer = getCustomer(dbOrder.getCustomerByBillingCustomerId(), orderVo.getCustomerByBillingCustomerIdVo());
+            dbOrder.setCustomerByBillingCustomerId(customer);
 
             if(orderVo.getShipperVo() != null) {
-                Shipper shipper = getShiper(orderVo.getShipperVo());
+                Shipper shipper = getShiper(dbOrder.getShipper(), orderVo.getShipperVo());
                 if (shipper.getShipperId() != null) {
-                    order.setShipper(shipper);
+                    dbOrder.setShipper(shipper);
                 }
             }
 
             if(orderVo.getPaymentDetailsVo() != null) {
                 PaymentDetails paymentDetails = getPaymentDetails(orderVo.getPaymentDetailsVo());
-                order.setPaymentDetails(paymentDetails);
+                dbOrder.setPaymentDetails(paymentDetails);
             }
 
 
         } catch (Exception ex) {
             logger.error(" Error while converting Order: ", ex);
         }
-        return order;
+        return dbOrder;
     }
 
     public static Order getNewOrder(OrderVo orderVo) {
@@ -121,11 +124,12 @@ public class BeanUtil {
         try {
             BeanUtils.copyProperties(order, orderVo);
             if(orderVo.getShipperVo() != null) {
-                Shipper shipper = getShiper(orderVo.getShipperVo());
+                Shipper shipper = getShiper(null, orderVo.getShipperVo());
                 if (shipper.getShipperId() != null) {
                     order.setShipper(shipper);
                 }
             }
+
         } catch (Exception ex) {
             logger.error(" Error while converting Order: ", ex);
         }
@@ -262,15 +266,18 @@ public class BeanUtil {
 
     }
 
-    public static Shipper getShiper(ShipperVo shipperVo) {
+    public static Shipper getShiper(Shipper dbShipper,  ShipperVo shipperVo) {
 
-        Shipper shipper = new Shipper();
+        if(dbShipper == null) {
+            dbShipper = new Shipper();
+        }
+
         try {
-            BeanUtils.copyProperties(shipper, shipperVo);
+            BeanUtils.copyProperties(dbShipper, shipperVo);
         } catch (Exception ex) {
             logger.error(" Error while converting ShiperVo: ", ex);
         }
-        return shipper;
+        return dbShipper;
 
     }
 

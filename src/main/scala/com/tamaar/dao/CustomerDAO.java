@@ -35,6 +35,14 @@ public class CustomerDAO {
         return entry;
     }
 
+    public Customer findByEmail(String email) {
+        Customer entry = customerRepository.findByEmail(email);
+        if (entry == null){
+            System.out.println("No address found with id: " + email);
+        }
+        return entry;
+    }
+
     public List<Customer> findByCustomer(Customer customer) {
         List<Customer> entryList = customerRepository.findByCustomer(customer.getEmail(), customer.getPassword());
         if (entryList == null){

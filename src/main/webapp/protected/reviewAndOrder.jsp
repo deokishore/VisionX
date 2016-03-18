@@ -20,7 +20,7 @@
                         <div class="progress-bar clearfix pt20">
                             	<ol>
                                 	<li class="first" id="login-progress-bar">
-                						<h4><a href="/checkoutLogin">Login / register</a></h4>
+                						<h4><a href="/login">Login / register</a></h4>
             						</li>
                                     <li class="completed" id="delivery-progress-bar">
                 						<h4>
@@ -54,6 +54,7 @@
                                 <hr class="divider">
                                 <div class="clearfix"></div>
                             </div>
+
                             <form id="order_payment" method="post" action="/checkout/checkoutStatus" name="orderPayment">
                             	<div class="order-details span11 my-account clearfix">
                                 	<div class="address-details clearfix borderln">

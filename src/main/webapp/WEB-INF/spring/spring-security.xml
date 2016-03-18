@@ -60,8 +60,8 @@
                 <user name="dba"   password="root123" authorities="ROLE_ADMIN,ROLE_DBA" />
             </user-service>-->
             <jdbc-user-service data-source-ref="myContactDataSource"
-                               users-by-username-query="select email, password, enabled from system_user where email = ?"
-                               authorities-by-username-query="select u.email as login, u.user_role as role from system_user u where u.email = ?" />
+                               users-by-username-query="select email, password, enabled from customer where email = ?"
+                               authorities-by-username-query="select u.email as login, u.user_role as role from customer u where u.email = ?" />
         </authentication-provider>
     </authentication-manager>
 

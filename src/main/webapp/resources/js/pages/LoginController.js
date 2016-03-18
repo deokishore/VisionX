@@ -51,6 +51,25 @@ function LoginController($scope, $http, $location, $rootScope, $window) {
             });
     }
 
+    // Update Delivery Customer Start
+    $scope.updateDeliveryCustomer = function () {
+        var url = '/checkout/updateDeliveryCustomer';
+        var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+
+         var response = $http.post(url, $rootScope.shoppingCart);
+             response.success(function(data, status, headers, config) {
+                $rootScope.shoppingCart = data;
+                $scope.bilDelCheckboxModel.value = true;
+                $scope.deliveryAddressModel.value = false;
+                $window.scrollTo(0, 500);
+
+             });
+             response.error(function(data, status, headers, config) {
+                 alert("Fail updateDeliveryCustomer");
+         });
+    };
+    // Update Delivery Customer End
+
 
 
     $scope.resetError = function() {

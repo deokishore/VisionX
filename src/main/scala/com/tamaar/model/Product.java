@@ -5,6 +5,7 @@ package com.tamaar.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tamaar.model.Price;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -28,6 +29,7 @@ public class Product implements java.io.Serializable {
 	private String description;
 	private String available;
 	private String imagePath;
+	private BigDecimal size;
 
 	private Set<OrderDetail> orderDetails = new HashSet(0);
 	private Set<Ingredient> ingredients = new HashSet(0);
@@ -36,10 +38,11 @@ public class Product implements java.io.Serializable {
 	public Product() {
 	}
 
-	public Product(String productId, String description, String available) {
+	public Product(String productId, String description, String available, BigDecimal size) {
 		this.productId = productId;
 		this.description = description;
 		this.available = available;
+		this.size = size;
 	}
 
 	public Product(String productId, Price price, String description,
@@ -132,4 +135,12 @@ public class Product implements java.io.Serializable {
 		this.howtouses = howtouses;
 	}
 
+	@Column(name = "size", precision = 5)
+	public BigDecimal getSize() {
+		return size;
+	}
+
+	public void setSize(BigDecimal size) {
+		this.size = size;
+	}
 }

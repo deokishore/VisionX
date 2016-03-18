@@ -42,4 +42,10 @@ public class CustomerService {
         List<CustomerVo> customerVoList =  BeanUtil.getCustomerVoList(customerList);
         return customerVoList;
     }
+
+    public CustomerVo isValidUser(String email) {
+        Customer customer = customerDAO.findByEmail(email);
+        CustomerVo customerVo =  BeanUtil.getCustomerVo(customer);
+        return customerVo;
+    }
 }

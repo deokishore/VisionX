@@ -58,7 +58,7 @@ public class CheckoutService {
     }
 
     public OrderVo savePaymentDetails(ShoppingCart shoppingCart) {
-        Order order = BeanUtil.getOrder(shoppingCart.getOrderVo());
+        Order order = BeanUtil.getOrder(null, shoppingCart.getOrderVo());
         PaymentDetails paymentDetails = paymentDetailsDAO.save(order.getPaymentDetails());
         order.setPaymentDetails(paymentDetails);
         //order = orderDAO.save(order);
@@ -119,8 +119,9 @@ public class CheckoutService {
                 orderVo.setCustomerByBillingCustomerIdVo(billingCustomerVo);
             }
 
-            Order order = BeanUtil.getOrder(orderVo);
-            order = orderDAO.save(order);
+            Order dbOrder = orderDAO.findById(orderVo.getOrderId());
+            dbOrder = BeanUtil.getOrder(dbOrder, orderVo);
+            dbOrder = orderDAO.save(dbOrder);
 
             List<ShoppingCartLineItem> lineItems = shoppingCart.getLineItems();
 
@@ -129,16 +130,58 @@ public class CheckoutService {
                 Product product = BeanUtil.getProduct(productVo);
                 int quantity = shoppingCartLineItem.getQuantity();
                 double totalCost = shoppingCartLineItem.getTotalCost();
+
+                boolean found= false;
+                for (OrderDetail dbOrderDetail : dbOrder.getOrderDetails()){
+                    if(dbOrderDetail.getProduct().getProductId().equals(product.getProductId())){
+                        dbOrderDetail.setOrder(dbOrder);
+                        product.setIngredients(null);
+                        product.setHowtouses(null);
+                        dbOrderDetail.setProduct(product);
+                        dbOrderDetail.setQuantity(String.valueOf(quantity));
+                        dbOrderDetail.setTotalPrice(String.valueOf(totalCost));
+                        orderDetailDAO.save(dbOrderDetail);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if(!found) {
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.setOrder(dbOrder);
+                    product.setIngredients(null);
+                    product.setHowtouses(null);
+                    orderDetail.setProduct(product);
+                    orderDetail.setQuantity(String.valueOf(quantity));
+                    orderDetail.setTotalPrice(String.valueOf(totalCost));
+                    orderDetailDAO.save(orderDetail);
+                }
+            }
+
+            orderVo = BeanUtil.getOrderVo(dbOrder);
+
+        } else if(shoppingCart.getLoginResponse().getStatus() != null &&
+                shoppingCart.getLoginResponse().getStatus().equalsIgnoreCase("OK")){
+
+            Order newOrder = BeanUtil.getNewOrder(orderVo);
+            newOrder = orderDAO.save(newOrder);
+            List<ShoppingCartLineItem> lineItems = shoppingCart.getLineItems();
+
+            for (ShoppingCartLineItem shoppingCartLineItem : lineItems) {
+
+                ProductVo productVo = shoppingCartLineItem.getProductVo();
+                Product product = BeanUtil.getProduct(productVo);
+                int quantity = shoppingCartLineItem.getQuantity();
+                double totalCost = shoppingCartLineItem.getTotalCost();
                 OrderDetail orderDetail = new OrderDetail();
 
-                orderDetail.setOrder(order);
+                orderDetail.setOrder(newOrder);
                 orderDetail.setProduct(product);
                 orderDetail.setQuantity(String.valueOf(quantity));
                 orderDetail.setTotalPrice(String.valueOf(totalCost));
                 orderDetailDAO.save(orderDetail);
             }
-
-            orderVo = BeanUtil.getOrderVo(order);
+            orderVo = BeanUtil.getOrderVo(newOrder);
 
         } else {
 
@@ -183,7 +226,7 @@ public class CheckoutService {
     public OrderVo saveShipper(OrderVo orderVo) {
         if(orderVo.getShipperVo() != null) {
             Order order = orderDAO.findById(orderVo.getOrderId());
-            Shipper shipper = BeanUtil.getShiper(orderVo.getShipperVo());
+            Shipper shipper = BeanUtil.getShiper(null, orderVo.getShipperVo());
             order.setShipper(shipper);
             order = orderDAO.save(order);
             orderVo = BeanUtil.getOrderVo(order);
@@ -267,7 +310,7 @@ public class CheckoutService {
         customerDAO.save(customerOne);
         orderVo.getCustomerByBillingCustomerIdVo().setCustomerId(customerOne.getCustomerId());
 
-        Order order = BeanUtil.getOrder(orderVo);
+        Order order = BeanUtil.getOrder(null, orderVo);
         order = orderDAO.save(order);
 
         orderVo = BeanUtil.getOrderVo(order);
