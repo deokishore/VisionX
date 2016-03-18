@@ -21,6 +21,7 @@ public class User {
     private String enabled;
     private String password;
 
+
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
     private Role role;
@@ -72,4 +73,6 @@ public class User {
     public void setEnabled(String enabled) {
         this.enabled = enabled;
     }
+
+
 }

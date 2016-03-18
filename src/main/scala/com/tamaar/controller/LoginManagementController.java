@@ -4,16 +4,15 @@ package com.tamaar.controller;
  * Created by deokishore on 01/02/2016.
  */
 
+import com.tamaar.model.SpringSecurityUser;
 import com.tamaar.service.CheckoutService;
 import com.tamaar.service.CustomerService;
 import com.tamaar.service.OrderService;
 import com.tamaar.shoppingcart.ShoppingCart;
 import com.tamaar.shoppingcart.parser.OrderVo;
-import com.tamaar.vo.CustomerVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -67,23 +66,20 @@ public class LoginManagementController {
 
     @RequestMapping(value = "/authen", method = RequestMethod.GET)
     public String authen(ModelMap model, HttpSession session) {
-        UserDetails userDetails =  getPrincipal();
-        if(userDetails.getUsername().equals("anonymousUser")){
-            model.addAttribute("user", getPrincipal());
+        SpringSecurityUser springSecurityUser =  getPrincipal();
+        if(springSecurityUser == null){
+            model.addAttribute("user", "anonymousUser");
             return "redirect:/login?invalid";
         } else {
 
-            String role = ((User) userDetails).getAuthorities().toArray()[0].toString();
             ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
             shoppingCart.getLoginResponse().setStatus("OK");
-            model.addAttribute("user", userDetails.getUsername());
+            model.addAttribute("user", springSecurityUser.getUsername());
 
-            CustomerVo customerVo = customerService.isValidUser(userDetails.getUsername());
-            customerVo.setRole(role);
-            shoppingCart.getOrderVo().setCustomerByCustomerIdVo(customerVo);
+            shoppingCart.getOrderVo().setCustomerByCustomerIdVo(springSecurityUser.getCustomerVo());
 
             // get Existing billing and delivery address:
-            List<OrderVo> orderList = orderService.findByCustomerId(customerVo);
+            List<OrderVo> orderList = orderService.findByCustomerId(springSecurityUser.getCustomerVo());
             OrderVo orderVo = orderList.get(0);
             shoppingCart.getOrderVo().setCustomerByBillingCustomerIdVo(orderVo.getCustomerByBillingCustomerIdVo());
             shoppingCart.getOrderVo().setCustomerByDeliveryCustomerIdVo(orderVo.getCustomerByDeliveryCustomerIdVo());
@@ -94,7 +90,7 @@ public class LoginManagementController {
             }
             session.setAttribute("shoppingCart", shoppingCart);
 
-            if(role.equals("ROLE_ADMIN")){
+            if(springSecurityUser.getCustomerVo().getRole().equals("ROLE_ADMIN")){
                 return "redirect:/admin";
             } else {
                 return "redirect:/billingDeliveryInfo";
@@ -116,15 +112,13 @@ public class LoginManagementController {
         return "redirect:/login?logout";
     }
 
-    private UserDetails getPrincipal(){
-        UserDetails userDetails = null;
+    private SpringSecurityUser getPrincipal(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            userDetails = ((UserDetails)principal);
+        SpringSecurityUser springSecurityUser = null;
+        if (principal instanceof SpringSecurityUser) {
+            springSecurityUser = ((SpringSecurityUser)principal);
         }
-
-        return userDetails;
+        return springSecurityUser;
     }
 
 }
