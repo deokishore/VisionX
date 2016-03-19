@@ -193,7 +193,7 @@ public class CheckoutService {
             Customer customer = BeanUtil.getCustomer(null, orderVo.getCustomerByCustomerIdVo());
             customer.setAddress(address);
             if(customer.getRole() == null || (customer.getRole() != null && !customer.getRole().equals("Admin"))){
-                customer.setRole("Customer");
+                customer.setRole("ROLE_USER");
             }
 
             newOrder.setCustomerByCustomerId(customer);
@@ -374,8 +374,9 @@ public class CheckoutService {
             customer.setAddress(address);
             BeanUtil.getCustomer(customer, orderVo.getCustomerByBillingCustomerIdVo());
             customer.setCustomerId(null);
+            customer.setEmail(""); //It should be empty to avoid duplicate email
             customer.getAddress().setAddressId(null);
-            address = addressDAO.save(customer.getAddress());
+            //address = addressDAO.save(customer.getAddress());
             customer.setAddress(address);
             customer = customerDAO.save(customer);
 
@@ -394,6 +395,7 @@ public class CheckoutService {
             Customer customer = customerDAO.findById(orderVo.getCustomerByBillingCustomerIdVo().getCustomerId());
             BeanUtil.getCustomer(customer, orderVo.getCustomerByBillingCustomerIdVo());
             customer.setAddress(address);
+            customer.setEmail(""); //It should be empty to avoid duplicate email
             customer = customerDAO.save(customer);
             CustomerVo customerVo = BeanUtil.getCustomerVo(customer);
             orderVo.setCustomerByBillingCustomerIdVo(customerVo);
@@ -402,12 +404,7 @@ public class CheckoutService {
             Address address = new Address();
             customer.setAddress(address);
             customer = BeanUtil.getCustomer(customer, orderVo.getCustomerByBillingCustomerIdVo());
-            //customer.setCustomerId(null);
-            //customer.getAddress().setAddressId(null);
-            //address = addressDAO.save(customer.getAddress());
-            //customer.setAddress(address);
-            //customer = customerDAO.save(customer);
-
+            customer.setEmail(""); //It should be empty to avoid duplicate email
             Order order = orderDAO.findById(orderVo.getOrderId());
             order.setCustomerByBillingCustomerId(customer);
             order = orderDAO.save(order);

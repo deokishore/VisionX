@@ -401,17 +401,7 @@
 															<span class="required">*</span>
 														</td>
 													</tr>
-													<tr>
-														<td class="label">
-															<label for="emailAddress">
-																<strong>Email Address</strong>
-															</label>
-														</td>
-														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.email" type="email" value="" name="emailAddress" id="emailAddress" class="text" required>
-															<span class="required">*</span>
-														</td>
-													</tr>
+
 													<tr>
 														<td class="label">
 															<label for="addressField1"><strong>Address line 1</strong></label>
