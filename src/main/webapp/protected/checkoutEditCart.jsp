@@ -68,9 +68,9 @@
                                             <input type="button" id="add-1" value="" class="add">
                                             </div>
                                      	</td>
-                                        <td class="price">£39.00</td>
+                                        <td class="price">Â£39.00</td>
                                         <td class="itemtotal">
-                                        	<span class="total">£39.00</span>
+                                        	<span class="total">Â£39.00</span>
                                         </td>
                                         <td class="remove">
                                         	<a class="cart" href="#">Remove</a>
@@ -97,9 +97,9 @@
                                             <input type="button" id="add-2" value="" class="add">
                                             </div>
                                      	</td>
-                                        <td class="price">£45.00</td>
+                                        <td class="price">Â£45.00</td>
                                         <td class="itemtotal">
-                                        	<span class="total">£45.00</span>
+                                        	<span class="total">Â£45.00</span>
                                         </td>
                                         <td class="remove">
                                         	<a class="cart" href="#">Remove</a>
@@ -126,9 +126,9 @@
                                             <input type="button" id="add-3" value="" class="add">
                                             </div>
                                      	</td>
-                                        <td class="price last">£34.00</td>
+                                        <td class="price last">Â£34.00</td>
                                         <td class="itemtotal last">
-                                        	<span class="total">£34.00</span>
+                                        	<span class="total">Â£34.00</span>
                                         </td>
                                         <td class="remove last">
                                         	<a class="cart" href="#">Remove</a>
@@ -143,15 +143,15 @@
                                     	<tbody>
                                         	<tr>
                                                 <td colspan="1" class="tr titles"><span>Subtotal</span></td>
-                                                <td class="a-right totals"><span>£147.00</span></td>
+                                                <td class="a-right totals"><span>Â£147.00</span></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="1" class="tr titles"><span>Delivery options from</span></td>
-                                                <td class="a-right totals"><span>£0.00</span></td>
+                                                <td class="a-right totals"><span>Â£0.00</span></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="1" class="tr titles"><span>Total</span></td>
-                                                <td class="a-right totals"><span>£147.00</span></td>
+                                                <td class="a-right totals"><span>Â£147.00</span></td>
                                             </tr>
                                         </tbody>
                                     </table>

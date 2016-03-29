@@ -51,7 +51,7 @@
                                     	<p class="pb15 pl15">Please select your postage method from the options below.</p>
                                        	<div class="inner-box span5">
                                             	<div id="checkout-shipping-method-load" class="default-box">
-                                                	<ul id="shipping-rate" class="stylenone">
+                                                	<ul id="shipping-rate" class="stylenone" style="display:inline;">
                                                     <li class="p10">
 	                    								<input type="radio" checked="checked" class="radio-0" value=
                                                         "UK-UK-RM-STANDARD" id="radiobtn1" name="shipping_method">

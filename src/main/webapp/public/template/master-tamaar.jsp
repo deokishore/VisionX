@@ -27,16 +27,14 @@
         <!-- End Meta Tags -->
 
         <!-- Tamaar Css Files -->
-
-		<link href="<c:url value='/resources/css/main.css'  />" rel="stylesheet"/>
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:300,400,700">
-        <link href="<c:url value='/resources/css/jquery-ui.css'  />" rel="stylesheet"/>
-        <link href="<c:url value='/resources/css/modal.css'  />" rel="stylesheet"/>
-        <link href="<c:url value='/resources/css/fancybox.css'  />" rel="stylesheet"/>
-        <link href="<c:url value='/resources/css/project_style.css'  />" rel="stylesheet"/>
-
         <link href="<c:url value='/resources/css/bootstrap.min.css'  />" rel="stylesheet"/>
-        <!-- <link href="<c:url value='/resources/css/bootstrap-responsive.min.css'  />" rel="stylesheet"/>-->
+		<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:300,400,700">
+        <link href="<c:url value='/resources/css/jquery-ui.css' />" rel="stylesheet"/>
+        <link href="<c:url value='/resources/css/modal.css' />" rel="stylesheet"/>
+        <link href="<c:url value='/resources/css/fancybox.css' />" rel="stylesheet"/>
+        <!--<link href="<c:url value='/resources/css/project_style.css'  />" rel="stylesheet"/>-->
+
 
         <!-- End Css Files -->
 
@@ -74,15 +72,15 @@
 		<script>
 		  $(function() {
 
-		    dialog = $( "#added-to-basket" ).dialog({
+		    dialog = $("#added-to-basket").dialog({
 		      autoOpen: false,
 		      height: 520,
 		      width: 365,
 		      modal: true,
 		    });
 
-		    $( "#add-cart-items").on( "click", function() {
-		     alert(" Testunbf ");
+		    $("#add-cart-items").on( "click", function() {
+		     alert("Testunbf");
 		      dialog.dialog("open");
 		    });
 		  });

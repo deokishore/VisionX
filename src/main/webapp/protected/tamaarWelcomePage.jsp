@@ -80,7 +80,7 @@
   <!-- End content-->
   <!--Begin Tree Image -->
             <div class="tmrtree span12">
-                <img src="resources/images/bg-footer.png" alt="Tamaar Skin Care">
+                <img src="../resources/images/bg-footer.png" alt="Tamaar Skin Care">
             </div>
         <!-- End Tree Image -->
         <div class="clearfix"></div>

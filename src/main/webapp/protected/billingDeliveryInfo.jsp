@@ -59,18 +59,14 @@
 									   Please confirm your billing address below, and if required select or add an alternative delivery address.
 									</p>
         						</div>
-
-
+                                <div class="section-title row span11">
+                                    <h3>Delivery Address</h3>
+                                    <hr class="divider">
+                                </div>
 
 								<!-- Delivery Address Section Start -->
 
 								<div class="billing-delivery-info span11 pt20 p30 pb10 borderln">
-
-									<div class="section-title row span11">
-										<h3>Delivery Address</h3>
-										<hr class="divider">
-									</div>
-
 									<p class="pb15 pl15">This is where we will send your invoice and your products unless an alternative delivery address is specified.</p>
 									<div class="billing-options">
 
@@ -126,7 +122,7 @@
 							<!-- Start Delivery Address Editing -->
 							<div class="billing-delivery-info span11 pt20 p30 pb10 borderln" ng-show="deliveryAddressModel.value == true">
 
-								<div class="section-title">
+								<div class="section-title row span10">
 									<h3>Edit Delivery Address</h3>
 									<hr class="divider">
 								</div>
@@ -292,7 +288,7 @@
 								<!-- Billing Address Show Section Start -->
 
 								<div id="billingAddressId" class="billing-delivery-info span11 pt20 p30 pb10 borderln" ng-show="billingAddressDisplayModel.value">
-									<div class="section-title row span11">
+									<div class="section-title row span10">
 										<h3>Billing Address</h3>
 										<hr class="divider">
 									</div>
@@ -340,7 +336,7 @@
 							<!-- Start Billing Address -->
 							<div class="billing-delivery-info span11 pt20 p30 pb10 borderln" ng-show="addEditBillingAddressModel.value">
 
-							<div class="section-title">
+                                <div class="section-title row span10">
 								<h3>Billing Address</h3>
 								<hr class="divider">
 							</div>
@@ -496,7 +492,7 @@
                                     <hr class="divider">
 									<div class="action_bottom">
 
-									  <input type="button" onclick="location.href='/checkout/customerRegistration?isGuest={{shoppingCart.loginResponse.isGuest}}'" value="Previousss" class="btn">
+									  <input type="button" onclick="location.href='/checkout/customerRegistration?isGuest={{shoppingCart.loginResponse.isGuest}}'" value="Previous" class="btn">
 
 									  <input ng-show="continueToPostageOptionsButtonModel.value"  type="submit" onclick="location.href='/checkout/checkoutPostage'" value="Continue to postage options" class="btn fr">
 
@@ -514,7 +510,7 @@
 
  		<!--Begin Tree Image -->
             <div class="tmrtree span12">
-                <img src="resources/images/bg-footer.png" alt="Tamaar Skin Care">
+                <img src="../resources/images/bg-footer.png" alt="Tamaar Skin Care">
             </div>
         <!-- End Tree Image -->
         <div class="clearfix"></div>

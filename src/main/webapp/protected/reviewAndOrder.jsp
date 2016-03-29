@@ -59,7 +59,7 @@
                             	<div class="order-details span11 my-account clearfix">
                                 	<div class="address-details clearfix borderln">
                                     	<div class="fl span5">
-                                        	<div class="details-title">
+                                        	<div class="details-title mt10">
                 								<h4>Your billing address:</h4>
                                                 <span class="fr"><a id="backToBilling" href="/billingDeliveryInfo">Change billing address</a></span>
                                                 <div class="clearfix"></div>
@@ -82,7 +82,7 @@
                                       	</div>
 
                                         <div class="fr span5">
-												<div class="details-title">
+												<div class="details-title mt10">
 													<h4>Your delivery address:</h4>
 													<span class="fr"><a id="backToDelivery" href="/billingDeliveryInfo">Change delivery address</a></span>
 													<div class="clearfix"></div>
@@ -255,7 +255,7 @@
 
  		<!--Begin Tree Image -->
             <div class="tmrtree span12">
-                <img src="resources/images/bg-footer.png" alt="Tamaar Skin Care">
+                <img src="../resources/images/bg-footer.png" alt="Tamaar Skin Care">
             </div>
         <!-- End Tree Image -->
         <div class="clearfix"></div>

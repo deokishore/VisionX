@@ -60,8 +60,7 @@
 
 
     <div class="product">
-         <input type="button" id="checkout" class="btn fr" name="cntshopping"
-                                 value="Checkout" onClick="location.href='/login'">
+         <input type="button" id="checkout" class="btn fr" name="cntshopping" value="Checkout" onClick="location.href='/login'">
          <a ng-href='#addToCartModal'
             role="button"
             ng-click='addToCart()'

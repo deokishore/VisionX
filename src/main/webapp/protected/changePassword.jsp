@@ -113,7 +113,7 @@
                                              	</tr>
                                                 <tr>
                                                     <td class="label">
-                                                    	<label class="label" for="tmr_hearaboutus">
+                                                    	<label for="tmr_hearaboutus">
                                                         	<strong>Where you hear about us?</strong>
                                             			</label>
                                                     </td>

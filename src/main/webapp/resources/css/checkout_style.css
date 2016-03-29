@@ -92,11 +92,11 @@ label {
 }
 
 /* Product entries */
-.product {
+/*.product {
   margin-bottom: 5px;
   padding-bottom: 5px;
   border-bottom: 5px solid #eee;
-}
+}*/
 .product .product-image {
   text-align: center;
 }

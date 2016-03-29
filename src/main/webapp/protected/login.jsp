@@ -76,7 +76,7 @@
 												<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
 
 												<div class="action_bottom">
-													<input type="submit" value="Log innnn" class="btn">
+													<input type="submit" value="Login" class="btn">
 												</div>
 											</form>
 										</div>
@@ -132,7 +132,7 @@
 
  		<!--Begin Tree Image -->
             <div class="tmrtree span12">
-                <img src="resources/images/bg-footer.png" alt="Tamaar Skin Care">
+                <img src="../resources/images/bg-footer.png" alt="Tamaar Skin Care">
             </div>
         <!-- End Tree Image -->
         <div class="clearfix"></div>

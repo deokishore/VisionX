@@ -168,7 +168,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="label">
-                                                        <label for="county"><strong>County</strong></label>
+                                                        <label for="county"><strong>Country</strong></label>
                                                     </td>
                                                     <td class="value">
                                                         <input ng-model="shoppingCart.orderVo.customerByCustomerIdVo.addressVo.county" type="text" value="" name="county" id="county" class="text">
@@ -189,7 +189,7 @@
 
                                                 <tr>
                                                     <td class="label">
-                                                    	<label for="tmr_hearaboutus" class="label">
+                                                    	<label for="tmr_hearaboutus">
                                                         	<strong>Where you hear about us?</strong>
                                             			</label>
                                                     </td>
@@ -242,7 +242,7 @@
 
  		<!--Begin Tree Image -->
             <div class="tmrtree span12">
-                <img src="resources/images/bg-footer.png" alt="Tamaar Skin Care">
+                <img src="../resources/images/bg-footer.png" alt="Tamaar Skin Care">
             </div>
         <!-- End Tree Image -->
         <div class="clearfix"></div>

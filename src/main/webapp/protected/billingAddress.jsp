@@ -23,6 +23,12 @@
                                     <a href="/billingAddress" id="side-nav-address_book" class="current">
                                     Billing &amp; delivery addresses</a>
                                 </li>
+                                <li>
+                                    <a href="/newAddress" id="side-nav-add_new_address">Add a new address</a>
+                                </li>
+                                <li>
+                                    <a href="/orderHistory" id="side-nav-orders">
+                                    Order history &amp; reorder</a>
                                 </li>
                                 <li class="last">
                                     <a href="/manageSubscriptions" id="side-nav-newsletter">
@@ -41,12 +47,6 @@
            <!-- Order Summary -->
              <div class="my-account account-create span9">
              	<h1 class="pb15">My account</h1>
-                                <li>
-                                    <a href="/newAddress" id="side-nav-add_new_address">Add a new address</a>
-                                </li>
-                                <li>
-                                    <a href="/orderHistory" id="side-nav-orders">
-                                    Order history &amp; reorder</a>
                 <div class="head">
                     <h2>Delivery & Billing addresses</h2>
                 </div>
