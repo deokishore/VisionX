@@ -11,6 +11,8 @@ public class LoginResponse {
     private Boolean isGuest;
     private CustomerVo customerVo;
 
+    private Boolean emailExist;
+
 
 
     public String getSessionId() {
@@ -52,5 +54,15 @@ public class LoginResponse {
     public void setCustomerVo(CustomerVo customerVo) {
         this.customerVo = customerVo;
     }
+
+
+    public Boolean getEmailExist() {
+        return emailExist;
+    }
+
+    public void setEmailExist(Boolean emailExist) {
+        this.emailExist = emailExist;
+    }
+
 }
 

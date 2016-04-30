@@ -5,6 +5,7 @@ import com.tamaar.model.Ingredient;
 import com.tamaar.model.OrderDetail;
 import com.tamaar.model.Price;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ public class ProductVo {
     private String description;
     private String available;
     private String imagePath;
+    private BigDecimal size;
 
     private Set<OrderDetailVo> orderDetails = new HashSet(0);
     private Set<IngredientVo> ingredients = new HashSet(0);
@@ -87,5 +89,13 @@ public class ProductVo {
 
     public void setHowtouses(Set<HowtouseVo> howtouses) {
         this.howtouses = howtouses;
+    }
+
+    public BigDecimal getSize() {
+        return size;
+    }
+
+    public void setSize(BigDecimal size) {
+        this.size = size;
     }
 }

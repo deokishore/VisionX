@@ -59,14 +59,26 @@ public class ShoppingCartController {
         return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
     }
 
-    /**
-     * Loads shopping cart line items from request body
-     *
-     */
+
     @RequestMapping(value = "addProductToCart", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<?> addProductToCart(@RequestBody ShoppingCartLineItem shoppingCartLineItem, HttpSession session) {
         shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
         shoppingCart.addLineItem(shoppingCartLineItem);
+        return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "addProductQuantity", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<?> addProductQuantity(@RequestBody ShoppingCartLineItem shoppingCartLineItem, HttpSession session) {
+        shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
+
+        for (ShoppingCartLineItem scli : shoppingCart.getLineItems()) {
+            if(scli.getProductVo().getProductId().equals(shoppingCartLineItem.getProductVo().getProductId())){
+                scli.setQuantity(shoppingCartLineItem.getQuantity());
+                scli.setTotalCost(scli.getQuantity() * scli.getProductVo().getPriceVo().getAmount().doubleValue());
+                shoppingCart.setSubTotalCost(shoppingCart.getSubTotalCost() + scli.getTotalCost());
+                break;
+            }
+        }
         return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
     }
 

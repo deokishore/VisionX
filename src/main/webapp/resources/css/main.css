@@ -553,7 +553,7 @@ footer #footer-level-2 .cards-protect {
 
 
 /* 3.6 - Product & Collections */
-.product { position: relative; margin-bottom: 20px; float: left; border-bottom:medium none; padding:0;}
+.product { position: relative; margin-bottom: 20px; float: left; border-bottom:medium none; padding:0; border-style: outset;}
 .product .image { position: relative; overflow: hidden; z-index: 8888; margin: 0 0 5px; }
 .product .image a { text-align: center; }
 .image a#placeholder.zoom, .thumbs .image a { text-align: center; }
@@ -563,7 +563,7 @@ footer #footer-level-2 .cards-protect {
 .product img, .product .image a { display: block; margin: 0 auto; }
 .product a { text-decoration: none; }
 .product .details a { text-align:center; display: block; padding: 5px 0; }
-.product .title, .product .vendor { text-align:center; display: block; margin: 0; line-height: 22px; display: block; color: #867654; }
+.product .title, .product .vendor { text-align:center; display: block; margin: 0; line-height: 22px; display: block; color: #867654; border: out}
 .product .title { text-align:center; font-weight: bold; font-size: 14px; }
 .product .vendor { font-size: 13px; margin-bottom: 2px; }
 .product .circle, #product .circle { position: absolute; text-transform: uppercase; z-index: 9999; font-size: 11px; line-height: 14px; right: -10px; top: -10px; color: #ffffff !important; padding: 17px 10px; -moz-border-radius: 40px; -webkit-border-radius: 40px; border-radius: 40px; font-weight: 700; -webkit-font-smoothing: subpixel-antialiased; }
@@ -578,8 +578,9 @@ footer #footer-level-2 .cards-protect {
 #product .thumbs .image { margin-bottom: 15px; }
 #product h3.collection-title { font-size: 20px; padding-bottom: 30px; border-bottom: 1px solid #ffffff; }
 
+.product-options-header label { display: block; margin-bottom: 3px; margin-top: 20px;}
 .product-options { padding: 15px 0 20px; margin-bottom: 15px; border-top: 1px solid #ffffff; border-bottom: 1px solid #ffffff; }
-.product-options label { display: block; margin-bottom: 3px; } 
+.product-options label { display: block; margin-bottom: 3px; margin-top: 10px;}
 .product-options select { margin-bottom: 20px; }
 .product-options textarea { width: 30px; line-height: 18px; height: 18px; min-height: 18px; margin-bottom: 20px; }
 .quantity { float:left; width: 40px; font: bold 18px Helvetica,sans-serif; margin-bottom: 20px; }

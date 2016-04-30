@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-<script src="<c:url value='/resources/js/pages/checkout.js'/>"></script>
+     <script src="<c:url value='/resources/js/pages/checkout.js'/>"></script>
 
      <!-- Begin content-->
      <div ng-controller="ProductsController" ng-init="searchProdcut('${productId}');">
@@ -31,17 +31,16 @@
                        </div>
                        <div class="span6">
                        	<div class="image featured borderyln">
-                           	<a id="placeholder" class="thumbnail fancybox" rel="ligthbox" href="resources/images/products/moisturiser/tmr-moisturiser_large.png">
-             						<img class="img-responsive" alt="Moisturiser Tamaar" src="resources/images/products/moisturiser/tmr-moisturiser_large.png">
+                           	<a id="placeholder" class="thumbnail fancybox" rel="ligthbox" href="{{shoppingCartLineItem.productVo.imagePath}}">
+             						<img class="img-responsive" alt="Moisturiser Tamaar" src="{{shoppingCartLineItem.productVo.imagePath}}">
            					</a>
                            </div>
                        </div>
                        <div class="span6">
                        	<h1 class="title">{{shoppingCartLineItem.productVo.productId}}</h1>
-                           <div class="purchase">
-
-           					<h2 id="price-preview" class="price"> <span id="currency-default">{{shoppingCartLineItem.productVo.priceVo.amount | currency:'£' }}</span><br> </h2>
-         					</div>
+                               <div class="purchase">
+                                    <h2 id="price-preview" class="price"> <span id="currency-default">{{shoppingCartLineItem.productVo.priceVo.amount | currency:'£' }}</span><br> </h2>
+                                </div>
 
                            <form id="add-item-form" action="" method="post" class="variants clearfix">
 
@@ -50,17 +49,17 @@
                                <!-- Begin product options -->
                                <div class="product-options">
 
-                                 <div id="quantity_btns_1" class="quantity-btns">
-                                    <input type="button" id="subtract-1" value="" class="subtract">
-                                    <input type="text" name="qty" value="1" id="qty_box-1" class="quantity-box" >
-                                    <input type="button" id="add-1" value="" class="add">
+                                 <div id="quantity_btns_1" class="quantity-btns" >
+                                    <input type="button" id="subtract-1" value="" class="subtract" ng-click="updateShoppingCart(shoppingCartLineItem, -1)">
+                                    <input type="text" name="qty" value="1" id="qty_box-1" class="quantity-box">
+                                    <input type="button" id="add-1" value="" class="add" ng-click="updateShoppingCart(shoppingCartLineItem, +1)">
                                  </div>
 
                     			 <div class="clearfix"></div>
                                  <div class="purchase-section">
 
                                    <div class="purchase">
-                                         <a ng-href='#addToCartModal'
+                                         <a ng-href='#myModal'
                                            role="button"
                                            ng-click='addToCart()'
                                            title="Add to cart"
@@ -150,7 +149,7 @@
 
                             <div class="product span3">
                                   <div class="image borderyln">
-                                      <a href="/product">
+                                      <a href="/product?productId={{product.productId}}">
                                           <img alt="Anti Wrinkle Cream" src="{{product.imagePath}}">
                                       </a>
                                   </div>
@@ -158,7 +157,7 @@
                                   <div class="details">
                                      <a class="clearfix" href="/product?productId={{product.productId}}">
                                             <h4 class="title">{{product.productId}}</h4>
-                                            <span class="vendor">£ {{product.priceVo.amount}}</span>
+                                            <span class="vendor"><span id="currency-default">{{shoppingCartLineItem.productVo.priceVo.amount | currency:'£' }}</span></span>
                                             <input type="button" class="btn" value="View Details" name="viewdetails" id="viewdtls1">
                                      </a>
                                   </div>
@@ -181,95 +180,3 @@
         	<div class="clearfix"></div>
         	</div>
 
-
-
-		<script>
-		  $(function() {
-
-		    dialog = $( "#added-to-basket" ).dialog({
-		      autoOpen: false,
-		      height: 520,
-		      width: 365,
-		      modal: true,
-		    });
-
-		    $( "#add-cart-items").on( "click", function() {
-		     alert(" Testunbf ");
-		      dialog.dialog("open");
-		    });
-
-		  });
-		</script>
-
-
-
-<!-- Cart Popup Box -->
-<div id="added-to-basket" class="p20 mt20" title="Item added to basket">
-<div class="added-product long-list clearfix">
-<div class="fl">
- Skin Lightening Cream <br>
- 50ml jar
-</div>
-<div class="fr">
-   Price: <em><span class="price">&pound;99.00</span></em><br>
-   Quantity: <em>1</em>
-</div>
-<div class="clearfix"></div>
-</div>
-<div class="added-product long-list clearfix">
-<div class="fl">
-    Anti Wrinkle Cream <br>
-    45ml
-</div>
-<div class="fr">
-    Price: <em><span class="price">&pound;45.00</span></em><br>
-    Quantity: <em>1</em>
-</div>
-<div class="clearfix"></div>
-</div>
-<div class="added-product long-list clearfix">
-<div class="fl">
- Skin Lightening Cream <br>
- 50ml jar
-</div>
-<div class="fr">
-   Price: <em><span class="price">&pound;99.00</span></em><br>
-   Quantity: <em>1</em>
-</div>
-<div class="clearfix"></div>
-</div>
-<div class="added-product long-list clearfix">
-<div class="fl">
-    Anti Wrinkle Cream <br>
-    45ml
-</div>
-<div class="fr">
-    Price: <em><span class="price">&pound;45.00</span></em><br>
-    Quantity: <em>1</em>
-</div>
-<div class="clearfix"></div>
-</div>
-<div class="fdbluebox clearfix">
-<div class="basket">
-    <ul class="stylenone nomargin">
-    <li class="basket-total">Basket total: <em><span class="price bold">&pound;42.75</span></em></li>
-    <li class="view-basket">
-        <a href="/cartItems">View basket</a>
-    </li>
-</ul>
-    <div class="clearfix"></div>
-</div>
-<div class="buttons-set">
-    <span class="continue-shopping fl">
-        <a class="simplemodal-close" id="cart-modal-continue" href="/products">Continue shopping</a>
-    </span>
-    <span class="fr">
-    <input type="submit" value="Checkout now" name="add" class="btn add-btn right" id="cart-modal-checkout-now" onClick="location.href='/cartItems'">
-</span>
-    <div class="clearfix"></div>
-</div>
-<div class="clearfix"></div>
-</div>
-<div class="fastdelivery clearfix">Fast UK delivery available from &pound;3.75.</div>
-</div>
-<!-- End Cart Box Popup-->

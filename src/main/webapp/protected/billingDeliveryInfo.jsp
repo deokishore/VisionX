@@ -12,7 +12,7 @@
             <!-- End Breadcrumbs --> 
     
             <!-- Order Summary -->
-            <!-- <div id="product" ng-controller="CheckoutController" ng-init="getCheckout();">-->
+
             <div id="product" ng-controller="CheckoutController" ng-init="getCheckout();">
 
             	<div class="row">
@@ -492,7 +492,10 @@
                                     <hr class="divider">
 									<div class="action_bottom">
 
-									  <input type="button" onclick="location.href='/checkout/customerRegistration?isGuest={{shoppingCart.loginResponse.isGuest}}'" value="Previous" class="btn">
+									  <div ng-show="shoppingCart.loginResponse.status != 'OK'">
+										  <input type="button" onclick="location.href='/checkout/customerRegistration?isGuest={{shoppingCart.loginResponse.isGuest}}'" value="Previous" class="btn">
+									  </div>
+
 
 									  <input ng-show="continueToPostageOptionsButtonModel.value"  type="submit" onclick="location.href='/checkout/checkoutPostage'" value="Continue to postage options" class="btn fr">
 

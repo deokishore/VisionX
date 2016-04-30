@@ -1,19 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet"/>
+
+
 <div class="row-fluid" ng-controller="contactsController">
     <h2>
         <p class="text-center">
             <spring:message code='orderList.header'/>
-            <a href="#searchContactsModal"
-               id="contactsHeaderButton"
-               role="button"
-               ng-class="{'': displaySearchButton == true, 'none': displaySearchButton == false}"
-               title="<spring:message code="search"/>&nbsp;<spring:message code="contact"/>"
-               class="btn btn-inverse" data-toggle="modal">
-                <i class="icon-search"></i>
-            </a>
         </p>
     </h2>
     <h4>
@@ -25,45 +20,7 @@
     </h4>
 
     <div>
-        <div id="loadingModal" class="modal hide fade in centering"
-             role="dialog"
-             aria-labelledby="deleteContactsModalLabel" aria-hidden="true">
-            <div id="divLoadingIcon" class="text-center">
-                <div class="icon-align-center loading"></div>
-            </div>
-        </div>
 
-        <div ng-class="{'alert badge-inverse': displaySearchMessage == true, 'none': displaySearchMessage == false}">
-            <h4>
-                <p class="messageToUser"><i class="icon-info-sign"></i>&nbsp;{{page.searchMessage}}</p>
-            </h4>
-            <a href="#"
-               role="button"
-               ng-click="resetSearch();"
-               ng-class="{'': displaySearchMessage == true, 'none': displaySearchMessage == false}"
-               title="<spring:message code='search.reset'/>"
-               class="btn btn-inverse" data-toggle="modal">
-                <i class="icon-remove"></i> <spring:message code="search.reset"/>
-            </a>
-        </div>
-
-        <div ng-class="{'alert badge-inverse': displayMessageToUser == true, 'none': displayMessageToUser == false}">
-            <h4 class="displayInLine">
-                <p class="messageToUser displayInLine"><i class="icon-info-sign"></i>&nbsp;{{page.actionMessage}}</p>
-            </h4>
-        </div>
-
-        <div ng-class="{'alert alert-block alert-error': state == 'error', 'none': state != 'error'}">
-            <h4><i class="icon-info-sign"></i> <spring:message code="error.generic.header"/></h4><br/>
-
-            <p><spring:message code="error.generic.text"/></p>
-        </div>
-
-        <div ng-class="{'alert alert-info': state == 'noresult', 'none': state != 'noresult'}">
-            <h4><i class="icon-info-sign"></i> <spring:message code="contacts.emptyData"/></h4><br/>
-
-            <p><spring:message code="contacts.emptyData.text"/></p>
-        </div>
 
         <div id="gridContainer" ng-class="{'': state == 'list', 'none': state != 'list'}">
             <table class="table table-bordered table-striped">
@@ -74,6 +31,7 @@
                     <th scope="col"><spring:message code="tamaar.productId"/></th>
                     <th scope="col"><spring:message code="tamaar.quantity"/></th>
                     <th scope="col"><spring:message code="tamaar.totalPrice"/></th>
+                    <th scope="col"><spring:message code="tamaar.orderDetailDialog"/></th>
                 </tr>
                 </thead>
                 <tbody ng-repeat="orderVo in page.source">
@@ -89,19 +47,12 @@
                         <td class="width15">
                             <div class="text-center">
                                 <input type="hidden" value="{{contact.id}}"/>
-                                <a href="#updateContactsModal"
+                                <a href="#myModal"
                                    ng-click="selectedContact(orderVo);"
                                    role="button"
                                    title="<spring:message code="update"/>&nbsp;<spring:message code="contact"/>"
                                    class="btn btn-inverse" data-toggle="modal">
-                                    <i class="icon-pencil"></i>
-                                </a>
-                                <a href="#deleteContactsModal"
-                                   ng-click="selectedContact(contact);"
-                                   role="button"
-                                   title="<spring:message code="delete"/>&nbsp;<spring:message code="contact"/>"
-                                   class="btn btn-inverse" data-toggle="modal">
-                                    <i class="icon-minus"></i>
+                                    See Detail
                                 </a>
                             </div>
                         </td>
@@ -143,17 +94,9 @@
                 </button>
             </div>
         </div>
+
         <div ng-class="{'text-center': displayCreateContactButton == true, 'none': displayCreateContactButton == false}">
             <br/>
-            <a href="#addContactsModal"
-               role="button"
-               ng-click="resetContact();"
-               title="<spring:message code='create'/>&nbsp;<spring:message code='contact'/>"
-               class="btn btn-inverse"
-               data-toggle="modal">
-                <i class="icon-plus"></i>
-                &nbsp;&nbsp;<spring:message code="create"/>&nbsp;<spring:message code="contact"/>
-            </a>
         </div>
 
         <jsp:include page="contactsDialogs.jsp"/>

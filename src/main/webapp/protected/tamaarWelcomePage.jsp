@@ -10,7 +10,6 @@
                   <ul class="slides">
                     <li><a href="javascript:void(0);"><img src="resources/images/home-slideshow/slideshow_1.jpg" alt="SlideImage1"/></a></li>
                     <li><a href="javascript:void(0);"><img src="resources/images/home-slideshow/slideshow_2.jpg" alt="SlideImage2"/></a></li>
-                    <li><a href="javascript:void(0);"><img src="resources/images/home-slideshow/slideshow_3.jpg" alt="SlideImage3"/></a></li>
                   </ul>
                   <div class="flex-controls"></div>
                 </div>
@@ -27,7 +26,7 @@
                         <div class="imgwrapper">
                             <span>Anti Wrinkle Cream</span>
                         </div>
-                        <a href="/product">
+                        <a href="/products">
                             <img alt="Anti Wrinkle Cream" src="resources/images/products/front-page/tmr-fp-antiwrinkle.jpg">
                         </a>
                     </div>
@@ -37,7 +36,7 @@
                         <div class="imgwrapper">
                             <span>Skin Lightening Cream</span>
                         </div>
-                        <a href="/product">
+                        <a href="/products">
                             <img alt="Skin Lightening Cream" src="resources/images/products/front-page/tmr-fp-skinlightening.jpg">
                         </a>
                     </div>

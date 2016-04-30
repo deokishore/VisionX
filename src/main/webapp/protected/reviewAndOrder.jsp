@@ -61,7 +61,7 @@
                                     	<div class="fl span5">
                                         	<div class="details-title mt10">
                 								<h4>Your billing address:</h4>
-                                                <span class="fr"><a id="backToBilling" href="/billingDeliveryInfo">Change billing address</a></span>
+                                                <!-- <span class="fr"><a id="backToBilling" href="/billingDeliveryInfo">Change billing address</a></span> -->
                                                 <div class="clearfix"></div>
                                     			<hr class="divider">
             								</div>
@@ -84,7 +84,7 @@
                                         <div class="fr span5">
 												<div class="details-title mt10">
 													<h4>Your delivery address:</h4>
-													<span class="fr"><a id="backToDelivery" href="/billingDeliveryInfo">Change delivery address</a></span>
+													 <!-- <span class="fr"><a id="backToDelivery" href="/billingDeliveryInfo">Change delivery address</a></span> -->
 													<div class="clearfix"></div>
 													<hr class="divider">
 												</div>
@@ -110,7 +110,7 @@
                                     <div class="email-details clearfix">
                                    		<div class="details-title">
                                             <h4>Email address:</h4>
-                                            <span class="fr"><a href="/editPersonalInfo">Edit your account details</a></span>
+                                            <!-- <span class="fr"><a href="/editPersonalInfo">Edit your account details</a></span> -->
                                             <div class="clearfix"></div>
                                             <hr class="divider">
                                         </div>  
@@ -122,14 +122,14 @@
                                     <div class="postage-method clearfix">
                                     	<div class="details-title">
                                             <h4>Postage method</h4>
-                                            <span class="fr"><a id="" href="/checkoutEditPostage">Change postage method</a></span>
+                                            <!-- <span class="fr"><a id="" href="/checkoutEditPostage">Change postage method</a></span> -->
                                             <div class="clearfix"></div>
                                             <hr class="divider">
                                         </div>
                                         <table cellspacing="0" class="order-table" id="overview-table">
                         					<tbody>
                                             	<tr class="first">
-                                                <td class="">{{shoppingCart.orderVo.shipperVo.shipperId}}</td>
+                                                <td class="">{{shoppingCart.orderVo.shipperVo.name}}</td>
                                                 <td class="last"><span class="price">&pound;{{shoppingCart.orderVo.shipperVo.price}}</span></td>
                                             	</tr>
                     						</tbody>
@@ -138,7 +138,7 @@
                                     <div class="basket-details">
                                     	<div class="details-title">
                                             <h4>Basket items:</h4>
-                                            <span class="fr"><a href="/checkoutEditCart">Edit basket contents</a></span>
+                                            	<!-- <span class="fr"><a href="/checkoutEditCart">Edit basket contents</a></span> -->
                                             <div class="clearfix"></div>
                                             <hr class="divider">
                                         </div> 
@@ -195,7 +195,7 @@
                                                    	</td>
                             						<td class="tr totals">
                                                     	<span class="price">
-                                                        	<em><span class="price">&pound; {{parseInt(shoppingCart.orderVo.shipperVo.price) + parseInt(1)}}</span></em>
+                                                        	<em><span class="price">&pound; {{ getTotal() + shoppingCart.orderVo.shipperVo.price }}</span></em>
                                                         </span>
                                                  	</td>
                         						</tr>
@@ -206,25 +206,27 @@
                                     	<div class="fl span5">
                                         	<div class="details-title">
                                             	<h4>Delivery requests:</h4>
-                                            	<span class="fr"><a href="#">Edit your requests</a></span>
-                                            	<div class="clearfix"></div>
-                                            	<hr class="divider">
-                                        	</div>
-                                            <ul class="requests">
-                                    		</ul>
-                                        </div>
-                                        <div class="fr span5">
-                                        	<div class="details-title">
-                                            	<h4>Payment method</h4>
-                                            	<span class="fr"><a href="/checkOutStep3">Edit payment method</a></span>
+                                            		<!-- <span class="fr"><a href="#">Edit your requests</a></span> -->
                                             	<div class="clearfix"></div>
                                             	<hr class="divider">
                                         	</div>
                                             <dl class="card-details">
-                                                <dt>Card type</dt><dd>Visa/Electron</dd>
-                                                <dt>Name on card</dt><dd>Rajan Sharma</dd>
-                                                <dt>Card number</dt><dd>xxxxxxxxxxxx7545</dd>
-                                                <dt>Expiry date</dt><dd>05/2022</dd>
+											   <dt> </dt><dd> {{shoppingCart.orderVo.deliveryRequest}} </dd>
+
+										   </dl>
+                                        </div>
+                                        <div class="fr span5">
+                                        	<div class="details-title">
+                                            	<h4>Payment method</h4>
+                                            		<!-- <span class="fr"><a href="/checkOutStep3">Edit payment method</a></span> -->
+                                            	<div class="clearfix"></div>
+                                            	<hr class="divider">
+                                        	</div>
+                                            <dl class="card-details">
+                                                <dt>Card type</dt><dd>{{shoppingCart.orderVo.paymentDetailsVo.cardType}}</dd>
+                                                <dt>Name on card</dt><dd>{{shoppingCart.orderVo.paymentDetailsVo.nameOnCard}}</dd>
+                                                <dt>Card number</dt><dd>{{shoppingCart.orderVo.paymentDetailsVo.cardNumber}}</dd>
+                                                <dt>Expiry date</dt><dd>{{shoppingCart.orderVo.paymentDetailsVo.expiryMonth}} - {{shoppingCart.orderVo.paymentDetailsVo.expiryYear}}</dd>
                                                 <dt>Security number</dt><dd>***</dd>
                                             </dl>
                                         </div>

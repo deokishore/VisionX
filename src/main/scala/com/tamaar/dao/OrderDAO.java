@@ -45,7 +45,6 @@ public class OrderDAO {
         return orderRepository.save(order);
     }
 
-
     public void updatePaymentMethod(int orderId, int paymentDetailsId) {
         Order order = new Order();
         order.setOrderId(orderId);

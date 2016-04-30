@@ -15,11 +15,11 @@ import java.util.Set;
 public class OrderVo {
 
     private Integer orderId;
-    private ShipperVo shipperVo;
+    private ShipperVo shipperVo = new ShipperVo();
     private CustomerVo customerByDeliveryCustomerIdVo = new CustomerVo();
     private CustomerVo customerByCustomerIdVo = new CustomerVo();
     private CustomerVo customerByBillingCustomerIdVo = new CustomerVo();
-    private String orderDeliveryAddress;
+    private String deliveryRequest;
     private PaymentDetailsVo paymentDetailsVo;
     private Date orderDate = new Date();
     private Date requiredDate = new Date();
@@ -66,14 +66,6 @@ public class OrderVo {
         this.customerByBillingCustomerIdVo = customerByBillingCustomerIdVo;
     }
 
-    public String getOrderDeliveryAddress() {
-        return orderDeliveryAddress;
-    }
-
-    public void setOrderDeliveryAddress(String orderDeliveryAddress) {
-        this.orderDeliveryAddress = orderDeliveryAddress;
-    }
-
     public PaymentDetailsVo getPaymentDetailsVo() {
         return paymentDetailsVo;
     }
@@ -112,5 +104,13 @@ public class OrderVo {
 
     public void setOrderDetailsVO(Set<OrderDetailVo> orderDetailsVO) {
         this.orderDetailsVO = orderDetailsVO;
+    }
+
+    public String getDeliveryRequest() {
+        return deliveryRequest;
+    }
+
+    public void setDeliveryRequest(String deliveryRequest) {
+        this.deliveryRequest = deliveryRequest;
     }
 }

@@ -24,10 +24,19 @@
             	<div class="row">
                 	<div class="span12">
                     	<h1>Your Shopping Cart</h1>
-                        <div class="pb15"><input type="button" id="checkout" class="btn fr" name="cntshopping" 
-                        value="Proceed to checkout" onClick="location.href='/login'">
-                          <div class="clearfix"></div>
+
+                        <div class="pb15" ng-show="shoppingCart.loginResponse.status == 'OK'">
+                             <form ng-submit="createNewOrderForExistingCustomer(shoppingCart)" >
+                                 <input type="submit" value="Proceed to checkout" class="btn fr">
+                             </form>
+                            <div class="clearfix"></div>
                         </div>
+
+                        <div class="pb15" ng-show="shoppingCart.loginResponse.status != 'OK'">
+                            <input type="button" id="checkout" class="btn fr" name="cntshopping" value="Proceed to checkout" onClick="location.href='/login'">
+                            <div class="clearfix"></div>
+                        </div>
+
                         <form id="cartform" method="post" action="/checkoutLogin">
                         	<table id="shopping-cart-table" class="data-table" cellspacing="0" border="0">
                              	<colgroup>
@@ -66,10 +75,9 @@
                                      	</td>
                                         <td class="qty">
                                         	<div class="quantity-btns" id="quantity_btns_1">
-                                                <input type="button" class="subtract" value="" id="subtract-1">
-                                                <input type="text" class="quantity-box" id="qty_box-1" value="{{shoppingCartLineItem.quantity}}"
-                                                name="qty">
-                                                <input type="button" class="add" value="" id="add-1">
+                                                <input type="button" class="subtract" value="" id="subtract-1" ng-click="updateShoppingCart(shoppingCartLineItem, -1)">
+                                                <input type="number" class="quantity-box" id="qty_box-1" name="qty" ng-model="shoppingCartLineItem.quantity">
+                                                <input type="button" class="add" value="" id="add-1" ng-click="updateShoppingCart(shoppingCartLineItem, +1)">
                                             </div>
                                             
                                      	</td>
@@ -107,8 +115,16 @@
                                 </div>
                             </div>
                             <div class="buttons clearfix">
-                              <input type="button" onClick="location.href='/products'"  value="Continue shopping" name="checkout" class="btn fl" id="continue-shopping">
-                              <input type="submit" value="Proceed to checkout" name="cntshopping" class="btn fr" id="checkout">
+                                  <input type="button" onClick="location.href='/products'"  value="Continue shopping" name="checkout" class="btn fl" id="continue-shopping">
+
+                                  <div ng-show="shoppingCart.loginResponse.status == 'OK'">
+                                       <input type="button" id="checkout" class="btn fr" name="cntshopping" value="Proceed to checkout" onClick="location.href='/billingDeliveryInfo'">
+                                  </div>
+
+                                  <div ng-show="shoppingCart.loginResponse.status != 'OK'">
+                                      <input type="button" id="checkout" class="btn fr" name="cntshopping" value="Proceed to checkout" onClick="location.href='/login'">
+                                  </div>
+
                             </div>
                         </form>
                     </div>

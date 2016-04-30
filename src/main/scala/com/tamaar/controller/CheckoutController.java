@@ -1,9 +1,11 @@
 package com.tamaar.controller;
 
 import com.tamaar.service.CheckoutService;
+import com.tamaar.service.CustomerService;
 import com.tamaar.service.ShipperService;
 import com.tamaar.shoppingcart.ShoppingCart;
 import com.tamaar.shoppingcart.parser.OrderVo;
+import com.tamaar.vo.CustomerVo;
 import com.tamaar.vo.ShipperVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,9 @@ public class CheckoutController {
     @Autowired
     ShipperService shipperService;
 
+    @Autowired
+    CustomerService customerService;
+
     private ShoppingCart shoppingCart;
 
     @RequestMapping(value = "customerRegistration", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
@@ -53,8 +58,43 @@ public class CheckoutController {
         return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
     }
 
+    @RequestMapping(value="createNewOrderForExistingCustomer", method = RequestMethod.POST, produces = "application/json")
+    public  ResponseEntity<?>  createNewOrderForExistingCustomer(@RequestBody ShoppingCart shoppingCart, HttpSession session) {
+
+        if(shoppingCart.getOrderVo().getCustomerByCustomerIdVo().getEmail() != null) {
+            CustomerVo validUser = customerService.isValidUser(shoppingCart.getOrderVo().getCustomerByCustomerIdVo().getEmail());
+            if (validUser != null){
+                shoppingCart.getLoginResponse().setEmailExist(true);
+                OrderVo orderVo = checkoutService.saveNewOrder(shoppingCart);
+                if(orderVo.getCustomerByDeliveryCustomerIdVo() == null) {
+                    shoppingCart.getOrderVo().setCustomerByDeliveryCustomerIdVo(orderVo.getCustomerByCustomerIdVo());
+                }
+
+                if(orderVo.getCustomerByBillingCustomerIdVo() == null) {
+                    shoppingCart.getOrderVo().setCustomerByBillingCustomerIdVo(orderVo.getCustomerByCustomerIdVo());
+                }
+
+                shoppingCart.setOrderVo(orderVo);
+                shoppingCart.getLoginResponse().setStatus("OK");
+
+                session.setAttribute("shoppingCart", shoppingCart);
+
+                return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
+            }
+        }
+        return null;
+    }
+
     @RequestMapping(value="createNewOrder", method = RequestMethod.POST, produces = "application/json")
     public  ResponseEntity<?>  createNewOrder(@RequestBody ShoppingCart shoppingCart, HttpSession session) {
+
+        if(shoppingCart.getOrderVo().getCustomerByCustomerIdVo().getEmail() != null) {
+            CustomerVo validUser = customerService.isValidUser(shoppingCart.getOrderVo().getCustomerByCustomerIdVo().getEmail());
+            if (validUser != null){
+                shoppingCart.getLoginResponse().setEmailExist(true);
+                return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
+            }
+        }
 
         OrderVo orderVo = checkoutService.saveNewOrder(shoppingCart);
 
@@ -114,7 +154,30 @@ public class CheckoutController {
     }
 
     @RequestMapping(value = "checkoutPostage", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-    public ModelAndView checkoutPostage(){
+    public ModelAndView checkoutPostage(HttpSession session){
+        shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
+
+        if(shoppingCart.getOrderVo().getOrderId() == null &&  shoppingCart.getOrderVo().getCustomerByCustomerIdVo().getEmail() != null) {
+            CustomerVo validUser = customerService.isValidUser(shoppingCart.getOrderVo().getCustomerByCustomerIdVo().getEmail());
+            if (validUser != null){
+                shoppingCart.getLoginResponse().setEmailExist(true);
+                OrderVo orderVo = checkoutService.saveNewOrder(shoppingCart);
+                if(orderVo.getCustomerByDeliveryCustomerIdVo() == null) {
+                    shoppingCart.getOrderVo().setCustomerByDeliveryCustomerIdVo(orderVo.getCustomerByCustomerIdVo());
+                }
+
+                if(orderVo.getCustomerByBillingCustomerIdVo() == null) {
+                    shoppingCart.getOrderVo().setCustomerByBillingCustomerIdVo(orderVo.getCustomerByCustomerIdVo());
+                }
+
+                shoppingCart.setOrderVo(orderVo);
+                shoppingCart.getLoginResponse().setStatus("OK");
+
+                session.setAttribute("shoppingCart", shoppingCart);
+
+            }
+        }
+
         return new ModelAndView("checkoutPostage");
     }
 

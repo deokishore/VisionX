@@ -29,7 +29,7 @@
 
                     <div class="product span4">
                           <div class="image borderyln">
-                              <a href="/product">
+                              <a href="/product?productId={{product.productId}}">
                                   <img alt="Anti Wrinkle Cream" src="{{product.imagePath}}">
                               </a>
                           </div>
@@ -37,7 +37,7 @@
                           <div class="details">
                              <a class="clearfix" href="/product?productId={{product.productId}}">
                                     <h4 class="title">{{product.productId}}</h4>
-                                    <span class="vendor">£ {{product.priceVo.amount}}</span>
+                                    <span class="vendor"><span id="currency-default">{{product.priceVo.amount | currency:'£' }}</span></span>
                                     <input type="button" class="btn" value="View Details" name="viewdetails" id="viewdtls1">
                              </a>
                           </div>

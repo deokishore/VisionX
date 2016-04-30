@@ -28,7 +28,7 @@ public class PaymentDetails implements java.io.Serializable {
 	private String expiryYear;
 	private String expiryMonth;
 	private String securityNumber;
-	private Set<Order> orders = new HashSet(0);
+	//private Set<Order> orders = new HashSet(0);
 
 	public PaymentDetails() {
 	}
@@ -42,7 +42,7 @@ public class PaymentDetails implements java.io.Serializable {
 		this.expiryYear = expiryYear;
 		this.expiryMonth = expiryMonth;
 		this.securityNumber = securityNumber;
-		this.orders = orders;
+		//this.orders = orders;
 	}
 
 	@Id
@@ -110,14 +110,14 @@ public class PaymentDetails implements java.io.Serializable {
 		this.securityNumber = securityNumber;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "paymentDetails")
-	@JsonIgnore
-	public Set<Order> getOrders() {
-		return this.orders;
-	}
-
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "paymentDetails")
+//	@JsonIgnore
+//	public Set<Order> getOrders() {
+//		return this.orders;
+//	}
+//
+//	public void setOrders(Set<Order> orders) {
+//		this.orders = orders;
+//	}
 
 }

@@ -80,7 +80,6 @@
 		    });
 
 		    $("#add-cart-items").on( "click", function() {
-		     alert("Testunbf");
 		      dialog.dialog("open");
 		    });
 		  });

@@ -18,6 +18,7 @@ import com.tamaar.shoppingcart.parser.OrderVo;
 import com.tamaar.util.BeanUtil;
 import com.tamaar.vo.CustomerVo;
 import com.tamaar.vo.ProductVo;
+import com.tamaar.vo.ShipperVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,7 +88,8 @@ public class CheckoutService {
             orderVo.setCustomerByCustomerIdVo(customerVo);
 
             // Delivery Customer Details
-            if(orderVo.getCustomerByDeliveryCustomerIdVo() != null){
+            if(orderVo.getCustomerByDeliveryCustomerIdVo() != null
+                    && (orderVo.getCustomerByCustomerIdVo().getCustomerId() != orderVo.getCustomerByCustomerIdVo().getCustomerId())){
 
                 Address existinDelivAddress = addressDAO.findById(orderVo.getCustomerByDeliveryCustomerIdVo().getAddressVo().getAddressId());
 
@@ -101,10 +103,13 @@ public class CheckoutService {
                 CustomerVo delivCustomerVo = BeanUtil.getCustomerVo(existingCustomer);
                 orderVo.setCustomerByDeliveryCustomerIdVo(delivCustomerVo);
 
+            } else {
+                orderVo.setCustomerByDeliveryCustomerIdVo(orderVo.getCustomerByCustomerIdVo());
             }
 
             // Delivery Customer Details
-            if(orderVo.getCustomerByBillingCustomerIdVo() != null){
+            if(orderVo.getCustomerByBillingCustomerIdVo() != null
+                    && (orderVo.getCustomerByCustomerIdVo().getCustomerId() != orderVo.getCustomerByCustomerIdVo().getCustomerId())){
 
                 Address existingBillingAddress = addressDAO.findById(orderVo.getCustomerByBillingCustomerIdVo().getAddressVo().getAddressId());
 
@@ -117,6 +122,8 @@ public class CheckoutService {
 
                 CustomerVo billingCustomerVo = BeanUtil.getCustomerVo(existingBillingCustomer);
                 orderVo.setCustomerByBillingCustomerIdVo(billingCustomerVo);
+            } else {
+                orderVo.setCustomerByBillingCustomerIdVo(orderVo.getCustomerByCustomerIdVo());
             }
 
             Order dbOrder = orderDAO.findById(orderVo.getOrderId());
@@ -220,6 +227,10 @@ public class CheckoutService {
             }
             orderVo = BeanUtil.getOrderVo(newOrder);
         }
+        if(orderVo.getShipperVo() == null) {
+            orderVo.setShipperVo(new ShipperVo());
+        }
+
         return orderVo;
     }
 
@@ -228,6 +239,7 @@ public class CheckoutService {
             Order order = orderDAO.findById(orderVo.getOrderId());
             Shipper shipper = BeanUtil.getShiper(null, orderVo.getShipperVo());
             order.setShipper(shipper);
+            order.setDeliveryRequest(orderVo.getDeliveryRequest());
             order = orderDAO.save(order);
             orderVo = BeanUtil.getOrderVo(order);
         }
@@ -248,10 +260,14 @@ public class CheckoutService {
 
             Customer customer = customerDAO.findById(billingCustId);
             int addressId = customer.getAddress().getAddressId();
-            customerDAO.delete(customer);
+            if(customer != null) {
+              customerDAO.delete(customer);
+            }
 
             Address address = addressDAO.findById(addressId);
-            addressDAO.delete(address);
+            if(address != null) {
+                addressDAO.delete(address);
+            }
 
             orderVo = BeanUtil.getOrderVo(order);
 

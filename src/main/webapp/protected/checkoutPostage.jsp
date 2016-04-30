@@ -60,11 +60,17 @@
                                     	<p class="pb15 pl15">Please select your postage method from the options below.</p>
                                         <div class="inner-box span6">
                                             <div id="checkout-shipping-method-load">
-                                                <ul ng-repeat="shipper in shipperList" id="shipping-rate" class="list-group">
-                                                    <li class="list-group-item">
-                                                        <input name="shipping_method" type="radio" ng-checked="{{shipper.name}}" ng-model="$parent.shipper.name" ng-change="setShipperId('{{shipper.shipperId}}')" value="{{shipper.name}}">
-                                                        <label class="badge" for="radiobtn1">{{shipper.name}} (<span class="price">£ {{shipper.price}}</span>)
-                                                        </label>
+                                                <ul id="shipping-rate" class="list-group">
+                                                    <li class="list-group-item" ng-repeat="shipper in shipperList" style="width: 490px; padding: 10px 15px;">
+
+                                                        <input ng-model="shoppingCart.orderVo.shipperVo.shipperId"
+                                                                     ng-value="shipper.shipperId"
+                                                                     ng-checked="(shoppingCart.orderVo.shipperVo.shipperId == shipper.shipperId)"
+                                                                     ng-change="setShipperId(shipper.shipperId)"
+                                                                     type="radio">
+
+                                                        <label for="radiobtn1">{{shipper.name}} (<span class="price">£ {{shipper.price}}</span>)</label>
+
                                                     </li>
                                                 </ul>
                                             </div>
@@ -81,18 +87,16 @@
                                     	<p class="pl15">
                                            <label for="show-comments">I have delivery requests that I wish to make</label>
 										</p>
-                                        	<div class="inner-box span11">
-                                        	    <form ng-submit="createNotice(selectedTicket)">
-                                                     <textarea ng-model="shoppingCart.orderVo.deliveryRequest"></textarea>
-                                                 </form>
-                                                <p class="pl15">If you have any questions regarding the options, please do get in touch on +44 (0)1234 567890.</p>
-                                            </div>
+                                        <div class="inner-box span11">
+                                             <textarea ng-model="shoppingCart.orderVo.deliveryRequest"></textarea>
+                                             <p class="pl15">If you have any questions regarding the options, please do get in touch on +44 (0)1234 567890.</p>
+                                        </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <hr class="divider">
 
                                     <div class="action_bottom">
-                                        <input type="submit" value="Previous" class="btn"  onclick="location.href='/checkout/billingDeliveryInfo'">
+                                        <input type="button" value="Previous" class="btn"  onclick="location.href='/checkout/billingDeliveryInfo'">
                                         <input type="submit"value="Continue to payment" class="btn fr">
                                     </div>
 

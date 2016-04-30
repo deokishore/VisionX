@@ -123,6 +123,7 @@ public class BeanUtil {
         Order order = new Order();
         try {
             BeanUtils.copyProperties(order, orderVo);
+            order  = getOrder(order, orderVo);
             if(orderVo.getShipperVo() != null) {
                 Shipper shipper = getShiper(null, orderVo.getShipperVo());
                 if (shipper.getShipperId() != null) {

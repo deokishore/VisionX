@@ -15,29 +15,6 @@
             	<div id="customer-login">
   					<div class="row">
     					<div class="span12" id="login">
-    						<!--
-      						<h1>Sign in</h1>
-      		                <div class="span5 pt20 greybordergt" ng-controller="LoginController">
-                            	<h3 class="p15">Existing Customer</h3>
-                            	<div class="alert alert-error" ng-show="error">{{errorMessage}}</div>
-								<form method="post" id="customer_login"  ng-submit="accountLogin(customerVo)">
-                                    <label class="label" for="customer_email"><strong>Email Address</strong></label>
-                                    <input type="email" class="text" id="customer_email" name="customer_email" value="" ng-model="customerVo.email" required>
-
-                                    <label class="label" for="customer_password"><strong>Password</strong></label>
-                                    <input type="password" size="16" class="text" id="customer_password" name="customer_password" value="" ng-model="customerVo.password" required>
-
-                                    <a onclick="showRecoverPasswordForm();return false;" href="#">Forgot your password?</a>
-
-                                    <div class="action_bottom">
-                                        <input type="submit" value="Sign In" class="btn" name="usersignin" id="usersignin">
-                                    </div>
-      						    </form>
-                            </div>
-                            -->
-
-
-
 
 										<div class="span5 pt20 greybordergt">
 										<h3 class="p15">Sign In</h3>
@@ -55,8 +32,6 @@
 														<p>Invalid username and password.</p>
 													</div>
 												</c:if>
-
-
 
 												<c:if test="${param.logout != null}">
 													<div class="alert alert-success">

@@ -11,18 +11,17 @@ function CheckoutController($scope, $http, $rootScope, $window) {
         $scope.displaySearchMessage = false;
         $scope.displaySearchButton = false;
         $scope.displayCreateContactButton = false;
+        $scope.emailExist = false;
 
-        $rootScope.shoppingCart = "";
-        $rootScope.shoppingCartLineItem = "";
 
-	$scope.updateShoppingCart = function (shoppingCartLineItem) {
-		for (var i=0; i<$rootScope.shoppingCart.lineItems.length; i++) {
-          if (shoppingCartLineItem.productVo.productId === $rootScope.shoppingCart.lineItems[i].productVo.productId) {
-               $rootScope.shoppingCart.lineItems[i].quantity = shoppingCartLineItem.quantity;
-               $rootScope.shoppingCart.lineItems[i].totalCost = shoppingCartLineItem.quantity * $rootScope.shoppingCart.lineItems[i].productVo.priceVo.amount;
-          }
-        }
-        $scope.shoppingCart = $rootScope.shoppingCart;
+	$rootScope.uShoppingCart = function (shoppingCartLineItem) {
+
+            for (var i=0; i<$rootScope.shoppingCart.lineItems.length; i++) {
+              if (shoppingCartLineItem.productVo.productId === $rootScope.shoppingCart.lineItems[i].productVo.productId) {
+                   $rootScope.shoppingCart.lineItems[i].quantity =  shoppingCartLineItem.quantity;
+                   $rootScope.shoppingCart.lineItems[i].totalCost = shoppingCartLineItem.quantity * $rootScope.shoppingCart.lineItems[i].productVo.priceVo.amount;
+              }
+            }
     };
 
     $scope.removeProductFromCart = function (shoppingCartLineItem) {
@@ -53,7 +52,6 @@ function CheckoutController($scope, $http, $rootScope, $window) {
     };
 
     $scope.getCustomerVo = function(){
-    alert($rootScope.shoppingCart.orderVo.customerByCustomerIdVo.firstName);
         $http.get("/checkout/getCustomerVo").success(function(data) {
               $scope.customerVo = data;
         });
@@ -61,19 +59,58 @@ function CheckoutController($scope, $http, $rootScope, $window) {
 
 
     // Create new Customer Start
+        $scope.createNewOrderForExistingCustomer = function (shoppingCart) {
+
+            var url = '/checkout/createNewOrderForExistingCustomer';
+            var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+            var response = $http.post(url, shoppingCart);
+
+            response.success(function(data, status, headers, config) {
+                $rootScope.shoppingCart = data;
+                $window.location.href = "/checkout/billingDeliveryInfo";
+            });
+
+            response.error(function(data, status, headers, config) {
+                 alert( "Exception details: " + JSON.stringify({data: data}));
+            });
+
+        };
+        // Create new Customer End
+
+
+    // Create new Customer Start
     $scope.createNewOrder = function (shoppingCart) {
-        var url = '/checkout/createNewOrder';
+
+        var url = "";
+        if($rootScope.shoppingCart.loginResponse.status == 'OK') {
+            url = '/checkout/createNewOrderForExistingCustomer';
+            alert(" Existing ");
+        }
+
+        if($rootScope.shoppingCart.loginResponse.status != 'OK'){
+            url = '/checkout/createNewOrder';
+            alert(" Not Existing ");
+        }
+
         var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
         var response = $http.post(url, shoppingCart);
 
         response.success(function(data, status, headers, config) {
             $rootScope.shoppingCart = data;
-            $window.location.href = "/checkout/billingDeliveryInfo";
+
+            if( $rootScope.shoppingCart.loginResponse.emailExist && $rootScope.shoppingCart.loginResponse.status != 'OK'){
+                $scope.emailExist = true;
+                $window.scrollTo(0, 700);
+                return;
+            } else {
+                $window.location.href = "/checkout/billingDeliveryInfo";
+            }
         });
 
         response.error(function(data, status, headers, config) {
              alert( "Exception details: " + JSON.stringify({data: data}));
         });
+
     };
     // Create new Customer End
 
@@ -141,13 +178,12 @@ function CheckoutController($scope, $http, $rootScope, $window) {
             .success(function (data) {
                $rootScope.shoppingCart = data;
 
-               if ($rootScope.shoppingCart.loginResponse.status === 'OK') {
-                $scope.billingAddressDisplayModel.value = true;
-               }
-                alert($rootScope.shoppingCart.lineItems.length);
+//               if ($rootScope.shoppingCart.loginResponse.status === 'OK') {
+//                 $scope.billingAddressDisplayModel.value = true;
+//               }
+
                if ($rootScope.shoppingCart.lineItems.length === 0) {
-                alert("Hello");
-                $scope.continueToPostageOptionsButtonModel.value = false;
+                 $scope.continueToPostageOptionsButtonModel.value = false;
                }
 
 
@@ -191,9 +227,6 @@ function CheckoutController($scope, $http, $rootScope, $window) {
                  alert( "Exception details: " + JSON.stringify({data: data}));
              });
           } else {
-
-            alert(" False: ");
-
             $scope.addEditBillingAddressModel.value = true;
             var url = '/checkout/deleteBillingCustomer';
             $http({
@@ -201,7 +234,6 @@ function CheckoutController($scope, $http, $rootScope, $window) {
                   url: url
               }).success(function (data) {
                     $rootScope.shoppingCart = data;
-                    $scope.billingCustomerVo = {};
                     $scope.billingAddressDisplayModel.value = false;
                     $scope.bilDelCheckboxModel.value = false;
                     $scope.billingAddressFinishedModel.value = false
@@ -216,40 +248,43 @@ function CheckoutController($scope, $http, $rootScope, $window) {
 
     // **** shipper list Start
     $scope.getShipperList = function () {
+
         var url = '/checkout/getShipperList';
         var config = {};
         $http.get(url, config)
             .success(function (data) {
                 $scope.shipperList = data
-                alert(" OrderVo " + $rootScope.orderVo.customerByCustomerIdVo.customerId);
             })
             .error(function () {
                 $scope.state = 'error';
-                alert("Error while retrieving shipper list");
             });
     };
     // **** shipper list End
 
     $scope.shipperId = '';
     $scope.setShipperId = function(value) {
-           $scope.shipperId = value;
+       $scope.shipperId = value;
     };
 
     $scope.setShipperValue = function () {
 
-         for(var i = 1; i < $scope.shipperList.length; i++){
+         for(var i = 0; i < $scope.shipperList.length; i++){
              var shipperVo = $scope.shipperList[i];
-             if(shipperVo.shipperId == $scope.shipperId){
+             if(shipperVo.shipperId == $scope.shoppingCart.orderVo.shipperVo.shipperId){
                  var url = '/checkout/setShipper';
                  var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
                  $rootScope.shoppingCart.orderVo.shipperVo = shipperVo;
+
                  var response = $http.post(url, $rootScope.shoppingCart);
+
                   response.success(function(data, status, headers, config) {
                         $window.location='/checkout/paymentMethod';
                   });
+
                   response.error(function(data, status, headers, config) {
                       alert( "Exception details: " + JSON.stringify({data: data}));
                   });
+
              }
          }
     };

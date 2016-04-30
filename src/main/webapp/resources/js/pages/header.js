@@ -15,7 +15,6 @@ function ProductsController($scope, $http, $rootScope) {
 
         //this will be available to all scope variables
         $rootScope.shoppingCart = "";
-
         $scope.searchForProduct = "";
 
         // **** product list Start
@@ -51,8 +50,6 @@ function ProductsController($scope, $http, $rootScope) {
        }
        // **** product display End
 
-
-
         $rootScope.getTotal = function(){
             var total = 0;
 
@@ -68,28 +65,63 @@ function ProductsController($scope, $http, $rootScope) {
 
 
         $scope.addProductToCart = function () {
-                alert("2222222");
-                $rootScope.shoppingCartLineItem.productVo = $scope.productVo;
-                $rootScope.shoppingCartLineItem.quantity =  $('#qty_box-1').val();
-                $rootScope.shoppingCartLineItem.totalCost = $scope.productVo.priceVo.amount * $('#qty_box-1').val();
+            $rootScope.shoppingCartLineItem.productVo = $scope.productVo;
+            $rootScope.shoppingCartLineItem.quantity =  $('#qty_box-1').val();
+            $rootScope.shoppingCartLineItem.totalCost = $scope.productVo.priceVo.amount * $('#qty_box-1').val();
 
-                alert($rootScope.shoppingCartLineItem.totalCost);
+            var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+            $scope.formData = { "shoppingCartLineItem" : $rootScope.shoppingCartLineItem};
+            var url = "/addProductToCart";
 
-                var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
-                $scope.formData = { "shoppingCartLineItem" : $rootScope.shoppingCartLineItem};
-                var url = "/addProductToCart";
+            var response = $http.post(url, $scope.formData);
 
-                var response = $http.post(url, $scope.formData);
+            response.success(function(data, status, headers, config) {
+                $rootScope.shoppingCart = data;
+            });
 
-                response.success(function(data, status, headers, config) {
-                    $rootScope.shoppingCart = data;
-                });
+            response.error(function(data, status, headers, config) {
+                alert( "Exception details: " + JSON.stringify({data: data}));
+            });
+        };
 
-                response.error(function(data, status, headers, config) {
-                    alert( "Exception details: " + JSON.stringify({data: data}));
-                });
+        $rootScope.updateShoppingCart2 = function (shoppingCartLineItem) {
+            var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+            var url = "/addProductQuantity";
+            var response = $http.post(url, shoppingCartLineItem);
+            response.success(function(data, status, headers, config) {
+                $rootScope.shoppingCart = data;
+            });
 
-            };
+            response.error(function(data, status, headers, config) {
+                alert( "Exception details: " + JSON.stringify({data: data}));
+            });
+        };
+
+
+       $rootScope.updateShoppingCart = function (shoppingCartLineItem, plusMinus) {
+
+           if(plusMinus === +1 ) {
+                shoppingCartLineItem.quantity =  parseInt($('#qty_box-1').val()) + 1;
+           }
+            if(plusMinus === -1 ) {
+                shoppingCartLineItem.quantity =  parseInt($('#qty_box-1').val()) - 1;
+           }
+
+           var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+
+           var url = "/addProductQuantity";
+           var response = $http.post(url, shoppingCartLineItem);
+
+           response.success(function(data, status, headers, config) {
+               $rootScope.shoppingCart = data;
+           });
+
+           response.error(function(data, status, headers, config) {
+               alert( "Exception details: " + JSON.stringify({data: data}));
+           });
+
+       };
+
 
         // **** Add product to cart START
         $rootScope.addToCart = function() {

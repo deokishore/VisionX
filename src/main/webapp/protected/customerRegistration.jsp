@@ -52,6 +52,12 @@
                                     <p class="required fr">* Required Fields</p>
                                     <div class="span10">
 
+
+                                    <div class="alert alert-danger" ng-show="emailExist">
+                                        <p>Email id already exists.</p>
+                                    </div>
+
+
                                     <form ng-submit="createNewOrder(shoppingCart)" >
 
                                     	<table class="create_new_account">
@@ -104,6 +110,7 @@
                                                         	<strong>Email Address</strong>
                                                         </label>
                                                     </td>
+
                                                     <td class="value">
                                                     	<input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.email" type="email" value="" name="emailAddress" id="emailAddress" class="text" required>
                                                         <span class="required">*</span>
