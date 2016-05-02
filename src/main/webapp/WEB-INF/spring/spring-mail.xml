@@ -13,11 +13,11 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.bestnest.in" />
-		<property name="port" value="587" />
+		<property name="host" value="localhost" />
+		<property name="port" value="25" />
 		<property name="protocol" value="smtp" />
-		<property name="username" value="info@bestnest.in" />
-		<property name="password" value="Move2you" />
+		<property name="username" value="customer.care@tamarskincare.com" />
+		<property name="password" value="Move2Tamaar" />
 
 	</bean>
 

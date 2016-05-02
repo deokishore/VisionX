@@ -40,7 +40,7 @@
                                 </ol>
                             </div>
 
-                            <form name="delvBilngForm" role="form" ng-submit="setShipperValue()" >
+                            <form name="postageMethodForm" role="form" ng-submit="setShipperValue()" >
                             	<div class="postage-options">
 
                             		<div class="head">
@@ -67,11 +67,16 @@
                                                                      ng-value="shipper.shipperId"
                                                                      ng-checked="(shoppingCart.orderVo.shipperVo.shipperId == shipper.shipperId)"
                                                                      ng-change="setShipperId(shipper.shipperId)"
-                                                                     type="radio">
+                                                                     type="radio"
+                                                                     name="shipperId"
+                                                                     ng-required="true">
+
 
                                                         <label for="radiobtn1">{{shipper.name}} (<span class="price">£ {{shipper.price}}</span>)</label>
-
                                                     </li>
+
+                                                    <span ng-show="postageMethodForm.$dirty && postageMethodForm.shipperId.$error.required">This is a required field</span>
+
                                                 </ul>
                                             </div>
                                         </div>

@@ -28,5 +28,8 @@
     <!-- SpringSecurity -->
     <import resource="spring-security.xml"/>
 
+    <!-- SpringSecurity -->
+    <import resource="spring-mail.xml" />
+
 
 </beans>

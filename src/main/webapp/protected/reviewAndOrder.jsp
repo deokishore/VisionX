@@ -236,9 +236,9 @@
                                 <div class="clearfix"></div>
                                 <hr class="divider">
                                 <div class="submit-payment-text">
-                    <p class="tr pt20">Please click 'Submit Payment' to complete your purchase.<br>We will process your order and send you a confirmation email.</p>
+                    				<p class="tr pt20">Please click 'Submit Payment' to complete your purchase.<br>We will process your order and send you a confirmation email.</p>
                 
-    </div>
+    							</div>
 								<div class="clearfix"></div>
                             	<hr class="divider">
                                 <div class="action_bottom">

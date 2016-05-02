@@ -58,6 +58,14 @@ public class CheckoutService {
         customerVo.getAddressVo().setAddressId(persistAddress.getAddressId());
     }
 
+    public OrderVo getOrdeFromDB(int orderid) {
+
+        Order order = orderDAO.findById(orderid);
+        OrderVo orderVo = BeanUtil.getOrderVo(order);
+        return  orderVo;
+
+    }
+
     public OrderVo savePaymentDetails(ShoppingCart shoppingCart) {
         Order order = BeanUtil.getOrder(null, shoppingCart.getOrderVo());
         PaymentDetails paymentDetails = paymentDetailsDAO.save(order.getPaymentDetails());

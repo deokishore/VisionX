@@ -2,6 +2,32 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<head>
+    <title>Form Demo</title>
+    <style>body{font-family:"Arial";background-color:#E2E2DC}</style>
+    <style>
+      .username.ng-valid {
+          background-color: lightgreen;
+      }
+      .username.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .username.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+
+      .email.ng-valid {
+          background-color: lightgreen;
+      }
+      .email.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+      .email.ng-dirty.ng-invalid-email {
+          background-color: yellow;
+      }
+    </style>
+</head>
+
 <script src="<c:url value='/resources/js/pages/checkout.js'/>"></script>
 
      <!-- Begin content-->
@@ -58,7 +84,7 @@
                                     </div>
 
 
-                                    <form ng-submit="createNewOrder(shoppingCart)" >
+                                    <form ng-submit="createNewOrder(shoppingCart)" name="customerRegistrationForm">
 
                                     	<table class="create_new_account">
                                         	<tbody>
@@ -69,7 +95,7 @@
                                                        	</label>
                                                     </td>
                                                     <td class="value">
-                                                    	<select data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.title" class="wide228" name="prefix" id="prefix" required>
+                                                    	<select data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.title" class="wide228" name="title" id="prefix" required>
                 											<option value="">Please select</option>
                                    							<option value="Miss">Miss</option>
                                                             <option value="Mr">Mr</option>
@@ -77,6 +103,7 @@
                                                             <option value="Ms">Ms</option>
                                                             <option value="Other">Other</option>
                                 						</select>
+                                						<span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.title.$error.required">This is a required field</span>
                                                         <span class="required">*</span>
                                                  	</td>
                                              	</tr>
@@ -89,6 +116,7 @@
                                                     </td>
                                                     <td class="value">
                                                     	<input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.firstName" type="text" value="" name="firstName" id="firstName" class="text" required>
+                                                    	<span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.firstName.$error.required">This is a required field</span>
                                                         <span class="required">*</span>
                                                  	</td>
                                              	</tr>
@@ -101,6 +129,7 @@
                                                     </td>
                                                     <td class="value">
                                                     	<input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.lastName" type="text" value="" name="lastName" id="lastName" class="text" required>
+                                                    	<span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.lastName.$error.required">This is a required field</span>
                                                         <span class="required">*</span>
                                                  	</td>
                                              	</tr>
@@ -112,7 +141,9 @@
                                                     </td>
 
                                                     <td class="value">
-                                                    	<input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.email" type="email" value="" name="emailAddress" id="emailAddress" class="text" required>
+                                                    	<input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.email" type="email" value="" name="email" id="email" class="text" required>
+                                                    	<span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.email.$error.required">This is a required field</span>
+                                                        <span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.email.$invalid">This field is invalid </span>
                                                         <span class="required">*</span>
                                                  	</td>
                                              	</tr>
@@ -123,7 +154,11 @@
                                                         </label>
                                                     </td>
                                                     <td class="value">
-                                                    	<input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.password" type="password" value="" name="userPassword" id="userPassword" class="text" required="{{!shoppingCart.loginResponse.isGuest}}">
+                                                    
+                                                    	<input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.password"
+                                                    	        type="password" name="password" id="password" class="text"
+                                                    	            required="{{!shoppingCart.loginResponse.isGuest}}">
+                                                    	<span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.password.$error.required">This is a required field</span>
                                                         <span class="required">*</span>
                                                  	</td>
                                              	</tr>
@@ -134,6 +169,7 @@
                                                     </td>
                                                     <td class="value">
                                                     	<input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.password" type="password" value="" name="confirmPassword" id="confirmPassword" class="text" name="userPassword" required="{{!shoppingCart.loginResponse.isGuest}}">
+                                                        <span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.password.$error.required">This is a required field</span>
                                                         <span class="required">*</span>
                                                  	</td>
                                              	</tr>
@@ -144,8 +180,9 @@
                                                         <label for="addressField1"><strong>Address line 1</strong></label>
                                                     </td>
                                                     <td class="value">
-                                                        <input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.addressVo.addressLine1" type="text" value="" name="addressField1" id="addressField1" class="text" required>
+                                                        <input data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.addressVo.addressLine1" type="text" value="" name="addressLine1" id="addressLine1" class="text" required>
                                                         <span class="required">*</span>
+                                                        <span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.addressLine1.$error.required">This is a required field</span>
                                                     </td>
                                                 </tr>
                                                  <tr>
@@ -169,7 +206,8 @@
                                                         <label for="cityField"><strong>City</strong></label>
                                                     </td>
                                                     <td class="value">
-                                                        <input ng-model="shoppingCart.orderVo.customerByCustomerIdVo.addressVo.city" type="text" value="" name="cityField" id="cityField" class="text" required>
+                                                        <input ng-model="shoppingCart.orderVo.customerByCustomerIdVo.addressVo.city" type="text" value="" name="city" id="city" class="text" required>
+                                                        <span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.city.$error.required">This is a required field</span>
                                                         <span class="required">*</span>
                                                     </td>
                                                 </tr>
@@ -189,7 +227,8 @@
                                                         </label>
                                                     </td>
                                                     <td class="value">
-                                                        <input ng-model="shoppingCart.orderVo.customerByCustomerIdVo.addressVo.postCode" type="text" value="" name="postalCode" id="postalCode" class="text" required pattern="\+?[0-9, A-Z]{3,12}" >
+                                                        <input ng-model="shoppingCart.orderVo.customerByCustomerIdVo.addressVo.postCode" type="text" value="" name="postCode" id="postCode" class="text" required pattern="\+?[0-9, A-Z]{3,12}" >
+                                                        <span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.postCode.$error.required">This is a required field</span>
                                                         <span class="required">*</span>
                                                     </td>
                                                 </tr>
@@ -201,7 +240,7 @@
                                             			</label>
                                                     </td>
                                                     <td class="value">
-                                                    	<select data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.hdyhau"  class="wide228" name="tmr_hearaboutus" id="tmr_hearaboutus" required>
+                                                    	<select data-ng-model="shoppingCart.orderVo.customerByCustomerIdVo.hdyhau"  class="wide228" name="hdyhau" id="hdyhau" required>
                                                             <option value="">Please select</option>
                                                             <optgroup label="Friends / family">
                                                                 <option value="Recommended by a Friend">Recommended by a Friend</option>
@@ -220,6 +259,7 @@
                                                             </optgroup>
                                                             <option value="Other9">Other</option>
                                                         </select>
+                                                        <span ng-show="customerRegistrationForm.$dirty && customerRegistrationForm.hdyhau.$error.required">This is a required field</span>
                                                         <span class="required">*</span>
                                                  	</td>
                                              	</tr>

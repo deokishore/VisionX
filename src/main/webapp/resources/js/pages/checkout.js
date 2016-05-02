@@ -89,7 +89,6 @@ function CheckoutController($scope, $http, $rootScope, $window) {
 
         if($rootScope.shoppingCart.loginResponse.status != 'OK'){
             url = '/checkout/createNewOrder';
-            alert(" Not Existing ");
         }
 
         var config = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};

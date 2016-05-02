@@ -44,7 +44,7 @@
                                 </ol>
                             </div>
 
-                            <form name="co-payment-form" role="form" ng-submit="validatePaymentMethod()" >
+                            <form name="paymentMethodForm" role="form" ng-submit="validatePaymentMethod()" >
 
                             	<div class="payment-options">
                             		<div class="head">
@@ -75,7 +75,8 @@
                                                                  </label>
                                                             </td>
                                                             <td class="value">
-                                                                <input ng-model="shoppingCart.orderVo.paymentDetailsVo.nameOnCard" type="text" class="text" id="cardHolderName" name="cardHolderName" value="" required>
+                                                                <input ng-model="shoppingCart.orderVo.paymentDetailsVo.nameOnCard" type="text" class="text" id="nameOnCard" name="nameOnCard" value="" required>
+                                                                <span ng-show="paymentMethodForm.$dirty && paymentMethodForm.nameOnCard.$error.required">This is a required field</span>
                                                                 <span class="required">*</span>
                                                             </td>
                                                         </tr>
@@ -86,11 +87,12 @@
                                                                 </label>
                                                             </td>
                                                             <td class="value">
-                                                                <select ng-model="shoppingCart.orderVo.paymentDetailsVo.cardType" name="pmt_cc_type" id="pmt_cc_type" class="wide228" required>
+                                                                <select ng-model="shoppingCart.orderVo.paymentDetailsVo.cardType" name="cardType" id="cardType" class="wide228" required>
                                                                   <option value="">--Please Select--</option>	
                                                                   <option value="Visa">Visa</option>
                                                                   <option value="MasterCard">MasterCard</option>
                                                                 </select>
+                                                                <span ng-show="paymentMethodForm.$dirty && paymentMethodForm.cardType.$error.required">This is a required field</span>
                                                                 <span class="required">*</span>
                                                             </td>
                                                         </tr>
@@ -99,7 +101,8 @@
                                                                 <label for="ccNumber"><strong>Card Number</strong></label>
                                                             </td>
                                                             <td class="value">
-                                                                <input ng-model="shoppingCart.orderVo.paymentDetailsVo.cardNumber" type="text" class="text" id="ccNumber" name="ccNumber" value="" pattern="\+?[0-9]{12,20}" required>
+                                                                <input ng-model="shoppingCart.orderVo.paymentDetailsVo.cardNumber" type="text" class="text" id="cardNumber" name="cardNumber" value="" pattern="\+?[0-9]{12,20}" required>
+                                                                <span ng-show="paymentMethodForm.$dirty && paymentMethodForm.cardNumber.$error.required">This is a required field</span>
                                                                 <span class="required">*</span>
                                                             </td>
                                                         </tr>
@@ -109,8 +112,8 @@
                                                                 </label>
                                                             </td>
                                                             <td class="value">
-                                                                <select ng-model="shoppingCart.orderVo.paymentDetailsVo.expiryMonth" name="cc-expires-month" id="cc-expires-month"required>
-                                                                    <option value="">Select Year</option>
+                                                                <select ng-model="shoppingCart.orderVo.paymentDetailsVo.expiryMonth" name="expiryMonth" id="expiryMonth"required>
+                                                                    <option value="">Select Month</option>
                                                                     <option value="01">January - (01)</option>
                                                                     <option value="02">February - (02)</option>
                                                                     <option value="03">March - (03)</option>
@@ -124,8 +127,10 @@
                                                                     <option value="11">November - (11)</option>
                                                                     <option value="12">December - (12)</option>
                                                                 </select>
-                                                                <select ng-model="shoppingCart.orderVo.paymentDetailsVo.expiryYear" name="cc-expires-year" id="cc-expires-year" required>
-                                                                  <option value="">Select Month</option>
+                                                                <span ng-show="paymentMethodForm.$dirty && paymentMethodForm.expiryMonth.$error.required">This is a required field</span>
+
+                                                                <select ng-model="shoppingCart.orderVo.paymentDetailsVo.expiryYear" name="expiryYear" id="expiryYear" required>
+                                                                  <option value="">Select Year</option>
                                                                   <option value="15">2015</option>
                                                                   <option value="16">2016</option>
                                                                   <option value="17">2017</option>
@@ -137,6 +142,8 @@
                                                                   <option value="23">2023</option>
                                                                   <option value="24">2024</option>
                                                                 </select>
+                                                                <span ng-show="paymentMethodForm.$dirty && paymentMethodForm.expiryYear.$error.required">This is a required field</span>
+
                                                             </td>
                                                         </tr>
 
@@ -145,8 +152,9 @@
                                                                 <label for="cc-cvv"><strong>Security Number</strong></label>
                                                             </td>
                                                             <td class="value">
-                                                                <input ng-model="shoppingCart.orderVo.paymentDetailsVo.securityNumber" type="password" name="cc-cvv" size="4" maxlength="4" id="cc-cvv" required pattern="\+?[0-9]{3,4}">
+                                                                <input ng-model="shoppingCart.orderVo.paymentDetailsVo.securityNumber" type="password" name="csecurityNumber" size="4" maxlength="4" id="cc-cvv" required pattern="\+?[0-9]{3,4}">
                                                                 <span class="required">*</span>
+                                                                <span ng-show="paymentMethodForm.$dirty && paymentMethodForm.securityNumber.$error.required">This is a required field</span>
                                                                 <span class="pt10"> (on back of the credit card)</span>
                                                             </td>
                                                         </tr>

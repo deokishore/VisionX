@@ -129,7 +129,7 @@
 
 								<div id="login" class="new-address span11">
 
-									<form name="delvBilngForm" role="form" ng-submit="updateDeliveryCustomer()" >
+									<form name="editDeliveryAddressForm" role="form" ng-submit="updateDeliveryCustomer()" >
 
 										<div class="span6">
 											<table class="create_new_account">
@@ -147,7 +147,7 @@
 															</label>
 														</td>
 														<td class="value">
-															<select ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.title" class="wide228" name="prefix" id="prefix" required>
+															<select ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.title" class="wide228" name="title" id="title" required>
 																<option value="">Please select</option>
 																<option value="Miss">Miss</option>
 																<option value="Mr">Mr</option>
@@ -155,6 +155,7 @@
 																<option value="Ms">Ms</option>
 																<option value="Other">Other</option>
 															</select>
+															<span ng-show="editDeliveryAddressForm.$dirty && editDeliveryAddressForm.title.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -168,6 +169,7 @@
 														</td>
 														<td class="value">
 															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.firstName" type="text" value="" name="firstName" id="firstName" class="text" required>
+															<span ng-show="editDeliveryAddressForm.$dirty && editDeliveryAddressForm.firstName.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -179,6 +181,7 @@
 														</td>
 														<td class="value">
 															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.lastName" type="text" value="" name="lastName" id="lastName" class="text" required>
+															<span ng-show="editDeliveryAddressForm.$dirty && editDeliveryAddressForm.lastName.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -189,7 +192,9 @@
 															</label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.email" type="email" value="" name="emailAddress" id="emailAddress" class="text" required>
+															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.email" type="email" value="" name="email" id="email" class="text" required>
+															<span ng-show="editDeliveryAddressForm.$dirty && editDeliveryAddressForm.email.$error.required">This is a required field</span>
+                                                            <span ng-show="editDeliveryAddressForm.$dirty && editDeliveryAddressForm.email.$invalid">This field is invalid </span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -198,7 +203,8 @@
 															<label for="addressField1"><strong>Address line 1</strong></label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.addressVo.addressLine1" type="text" value="" name="addressField1" id="addressField1" class="text" required>
+															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.addressVo.addressLine1" type="text" name="addressLine1" id="addressLine1" class="text" required>
+															<span ng-show="editDeliveryAddressForm.$dirty && editDeliveryAddressForm.addressLine1.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -223,7 +229,8 @@
 															<label for="cityField"><strong>City</strong></label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.addressVo.city" type="text" value="" name="cityField" id="cityField" class="text" required>
+															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.addressVo.city" type="text" value="" name="city" id="city" class="text" required>
+															<span ng-show="editDeliveryAddressForm.$dirty && editDeliveryAddressForm.city.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -242,7 +249,8 @@
 															</label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.addressVo.postCode" type="text" value="" name="postalCode" id="postalCode" class="text" required pattern="\+?[0-9, A-Z]{3,12}" >
+															<input ng-model="shoppingCart.orderVo.customerByDeliveryCustomerIdVo.addressVo.postCode" type="text" value="" name="postCode" id="postCode" class="text" required pattern="\+?[0-9, A-Z]{3,12}" >
+															<span ng-show="editDeliveryAddressForm.$dirty && editDeliveryAddressForm.postCode.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -343,7 +351,7 @@
 
 								<div id="login" class="new-address span11">
 
-									<form name="addEditForm" role="form" ng-submit="updateBillingCustomer()" >
+									<form name="billingAddressForm" role="form" ng-submit="updateBillingCustomer()">
 
 										<div class="span6">
 											<table class="create_new_account">
@@ -362,7 +370,7 @@
 															</label>
 														</td>
 														<td class="value">
-															<select ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.title" class="wide228" name="prefix" id="prefix" required>
+															<select ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.title" class="wide228" name="title" id="prefix" required>
 																<option value="">Please select</option>
 																<option value="Miss">Miss</option>
 																<option value="Mr">Mr</option>
@@ -370,6 +378,7 @@
 																<option value="Ms">Ms</option>
 																<option value="Other">Other</option>
 															</select>
+															<span ng-show="billingAddressForm.$dirty && billingAddressForm.title.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -382,7 +391,8 @@
 															</label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.firstName" type="text" value="" name="firstName" id="firstName" class="text" required>
+															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.firstName" type="text"  name="firstName" id="firstName" class="text" required>
+															<span ng-show="billingAddressForm.$dirty && billingAddressForm.firstName.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -393,7 +403,8 @@
 															</label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.lastName" type="text" value="" name="lastName" id="lastName" class="text" required>
+															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.lastName" type="text" name="lastName" id="lastName" class="text" required>
+															<span ng-show="billingAddressForm.$dirty && billingAddressForm.lastName.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -403,7 +414,8 @@
 															<label for="addressField1"><strong>Address line 1</strong></label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.addressVo.addressLine1" type="text" value="" name="addressField1" id="addressField1" class="text" required>
+															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.addressVo.addressLine1" type="text" value="" name="addressLine1" id="addressLine1" class="text" required>
+															<span ng-show="billingAddressForm.$dirty && billingAddressForm.addressLine1.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -412,7 +424,7 @@
 															<label for="addressField2"><strong>Address line 2</strong></label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.addressVo.addressLine2" type="text" value="" name="addressField2" id="addressField2" class="text">
+															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.addressVo.addressLine2" type="text" name="addressLine2" id="addressLine2" class="text">
 														</td>
 													</tr>
 													<tr>
@@ -428,7 +440,8 @@
 															<label for="cityField"><strong>City</strong></label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.addressVo.city" type="text" value="" name="cityField" id="cityField" class="text" required>
+															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.addressVo.city" type="text" value="" name="city" id="city" class="text" required>
+															<span ng-show="billingAddressForm.$dirty && billingAddressForm.city.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>
@@ -448,7 +461,8 @@
 															</label>
 														</td>
 														<td class="value">
-															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.addressVo.postCode" type="text" value="" name="postalCode" id="postalCode" class="text" required pattern="\+?[0-9, A-Z]{3,12}" >
+															<input ng-model="shoppingCart.orderVo.customerByBillingCustomerIdVo.addressVo.postCode" type="text" value="" name="postCode" id="postCode" class="text" required pattern="\+?[0-9, A-Z]{3,12}" >
+															<span ng-show="billingAddressForm.$dirty && billingAddressForm.postCode.$error.required">This is a required field</span>
 															<span class="required">*</span>
 														</td>
 													</tr>

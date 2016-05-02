@@ -2,6 +2,7 @@ package com.tamaar.controller;
 
 import com.tamaar.service.CheckoutService;
 import com.tamaar.service.CustomerService;
+import com.tamaar.service.EmailService;
 import com.tamaar.service.ShipperService;
 import com.tamaar.shoppingcart.ShoppingCart;
 import com.tamaar.shoppingcart.parser.OrderVo;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -41,6 +43,9 @@ public class CheckoutController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    EmailService emailService;
 
     private ShoppingCart shoppingCart;
 
@@ -214,7 +219,16 @@ public class CheckoutController {
     }
 
     @RequestMapping(value = "checkoutStatus", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-    public ModelAndView checkoutStatus(){
+    public ModelAndView checkoutStatus(HttpSession session){
+        shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
+        try {
+            if(shoppingCart.getOrderVo() != null && shoppingCart.getOrderVo().getOrderId() != null) {
+                OrderVo orderVo = checkoutService.getOrdeFromDB(shoppingCart.getOrderVo().getOrderId());
+                emailService.sendClientEMail(orderVo);
+            }
+        } catch (MessagingException ex) {
+            logger.error(" Error while sending email : " + ex);
+        }
         return new ModelAndView("checkoutStatus");
     }
 
